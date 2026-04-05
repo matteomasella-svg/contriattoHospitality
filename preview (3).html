@@ -1,0 +1,1264 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>2EMME Apartments - Documentazione Ufficiale 2026</title>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-dark: #021216;
+      --bg-dark-2: #071c21;
+      --text-main: #ffffff;
+      --text-soft: #d9e4e7;
+      --text-muted: #9bb2b8;
+      --ottanio-palette: #004D54;
+      --red-palette: #DB4F61;
+      --green-palette: #54C4A6;
+      --gold-palette: #d4af37;
+      --border: rgba(255, 255, 255, 0.1);
+      --glass: rgba(255, 255, 255, 0.03);
+      --glass-blur: blur(25px);
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      background-color: var(--bg-dark);
+      background-image:
+        radial-gradient(circle at 10% 10%, rgba(0, 77, 84, 0.15) 0%, transparent 40%),
+        radial-gradient(circle at 90% 15%, rgba(84, 196, 166, 0.08) 0%, transparent 35%);
+      color: var(--text-main);
+      margin: 0;
+      padding: 10px;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      min-height: 100vh;
+    }
+
+    .glass-container {
+      background: var(--glass);
+      backdrop-filter: var(--glass-blur);
+      -webkit-backdrop-filter: var(--glass-blur);
+      border: 1px solid var(--border);
+      border-radius: 28px;
+      padding: 25px;
+      width: 100%;
+      max-width: 1120px;
+      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.5);
+      margin: 20px 0;
+    }
+
+    .brand-header { text-align: center; margin-bottom: 20px; }
+    .brand-logo { max-width: 220px; height: auto; margin-bottom: 15px; }
+    .hero-subtitle {
+      color: var(--text-soft);
+      font-size: 14px;
+      line-height: 1.7;
+      max-width: 840px;
+      margin: 12px auto 0;
+    }
+
+    #google_translate_element { margin: 20px 0; text-align: center; min-height: 40px; }
+
+    .policy-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(195px, 1fr));
+      gap: 12px;
+      margin-bottom: 30px;
+    }
+
+    .policy-card {
+      background: rgba(255, 255, 255, 0.02);
+      border-radius: 20px;
+      padding: 15px;
+      border-width: 2px;
+      border-style: solid;
+      min-height: 170px;
+    }
+
+    .card-header { color: var(--green-palette); font-weight: 800; margin-bottom: 10px; }
+    #standard { border-color: var(--ottanio-palette); }
+    #long { border-color: var(--green-palette); }
+    #extra { border-color: var(--red-palette); }
+    #smart { border-color: var(--gold-palette); }
+    #flex { border-color: #8a94a6; }
+
+    .card-info { font-size: 11px; color: #cbd5e0; line-height: 1.55; }
+    .card-info b { color: #fff; }
+
+    .simulator-section {
+      background: rgba(0, 0, 0, 0.3);
+      border: 1px solid var(--border);
+      border-radius: 22px;
+      padding: 25px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      margin-bottom: 30px;
+    }
+
+    .controls-col { flex: 1.15; min-width: 300px; }
+    .results-col {
+      flex: 0.85;
+      min-width: 300px;
+      border-left: 1px solid var(--border);
+      padding-left: 25px;
+      text-align: right;
+    }
+
+    .input-label {
+      font-size: 13px;
+      color: #a0aec0;
+      font-weight: 600;
+      display: block;
+      margin-bottom: 8px;
+    }
+
+    .days-value { float: right; color: #fff; font-weight: 800; font-size: 18px; }
+
+    .dropdown, .money-input {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      color: #fff;
+      padding: 12px;
+      width: 100%;
+      font-family: inherit;
+      font-size: 14px;
+      margin-bottom: 15px;
+      outline: none;
+    }
+
+    .checkbox-label {
+      font-size: 13px;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 15px;
+      cursor: pointer;
+    }
+
+    .mini-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-top: 10px;
+    }
+
+    .price-breakdown {
+      font-size: 13px;
+      color: #a0aec0;
+      line-height: 2.1;
+      text-align: left;
+    }
+
+    .price-line {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+      padding: 2px 0;
+    }
+
+    .price-breakdown span.value {
+      color: #fff;
+      font-weight: 600;
+      text-align: right;
+      min-width: 100px;
+    }
+
+    .total-price {
+      font-size: 32px;
+      font-weight: 800;
+      color: var(--green-palette);
+      margin-top: 15px;
+      border-top: 1px solid var(--border);
+      padding-top: 15px;
+    }
+
+    .summary-chip {
+      display: inline-block;
+      margin-top: 10px;
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.06);
+      color: var(--text-soft);
+      font-size: 12px;
+      font-weight: 700;
+      border: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .benefit-badge {
+      background: rgba(84, 196, 166, 0.1);
+      color: var(--green-palette);
+      padding: 8px 10px;
+      border-radius: 10px;
+      font-size: 11px;
+      font-weight: 800;
+      border: 1px solid var(--green-palette);
+      margin-top: 14px;
+      display: none;
+      text-align: left;
+      line-height: 1.6;
+    }
+
+    .sim-note {
+      margin-top: 14px;
+      font-size: 12px;
+      color: var(--text-muted);
+      line-height: 1.7;
+      text-align: left;
+    }
+
+    .accordion {
+      background: rgba(255, 255, 255, 0.04);
+      color: var(--green-palette);
+      cursor: pointer;
+      padding: 18px;
+      width: 100%;
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      margin-top: 10px;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 15px;
+      text-align: left;
+      outline: none;
+    }
+
+    .panel {
+      padding: 0 20px;
+      background: rgba(0, 0, 0, 0.15);
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.4s ease-out;
+      border-radius: 0 0 16px 16px;
+      font-size: 14px;
+      line-height: 1.7;
+      color: #e2e8f0;
+    }
+
+    .panel-inner { padding: 25px 0; }
+    .panel-inner h3 { color: var(--green-palette); font-weight: 800; margin-top: 0; }
+    .panel-inner p { margin: 0 0 12px; }
+    .panel-inner ul { margin: 8px 0 16px 18px; padding: 0; }
+
+    .fair-use-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 15px 0;
+      font-size: 12px;
+      color: #fff;
+    }
+
+    .fair-use-table td, .fair-use-table th {
+      border: 1px solid var(--border);
+      padding: 8px;
+      text-align: left;
+      vertical-align: top;
+    }
+
+    .fair-use-table th { background: var(--ottanio-palette); color: #fff; }
+
+    .privacy-item {
+      margin-bottom: 15px;
+      display: block;
+      border-left: 2px solid var(--ottanio-palette);
+      padding-left: 12px;
+    }
+
+    .privacy-item b {
+      color: var(--green-palette);
+      display: block;
+      margin-bottom: 4px;
+    }
+
+    input[type=range] { width: 100%; accent-color: var(--green-palette); }
+    strong, b { color: var(--green-palette); font-weight: 800; }
+
+    .highlight-box {
+      padding: 16px;
+      border: 1px solid rgba(84, 196, 166, 0.18);
+      background: rgba(84, 196, 166, 0.05);
+      border-radius: 14px;
+      margin: 12px 0 16px;
+    }
+
+    @media (max-width: 860px) {
+      .results-col {
+        border-left: none;
+        border-top: 1px solid var(--border);
+        padding-left: 0;
+        padding-top: 20px;
+      }
+    }
+
+    @media (max-width: 640px) {
+      body { padding: 6px; }
+      .glass-container { padding: 16px; }
+      .mini-grid { grid-template-columns: 1fr; }
+      .brand-logo { max-width: 180px; }
+      .price-line { font-size: 12px; }
+      .total-price { font-size: 28px; }
+    }
+  </style>
+</head>
+<body>
+<div class="glass-container">
+  <div class="brand-header">
+    <img src="logo_correct.png" alt="2EMME Apartments" class="brand-logo">
+    <div id="google_translate_element"></div>
+    <p class="hero-subtitle">
+      Interfaccia aggiornata con logiche 2026: modelli <strong>Guaranteed</strong> e <strong>Flex Stay</strong>,
+      sconti progressivi, benefit dinamici, penale di recesso <strong>fissa, limitata e prevedibile</strong>,
+      Fair Use / Overuse, separazione chiara tra penale, danni e consumi e quadro informativo completo su costi,
+      pulizie, regole della casa e condizioni contrattuali.
+    </p>
+  </div>
+
+  <div id="adr-lock" style="margin-top:8px; display:flex; justify-content:center; gap:10px; align-items:center;">
+    <button id="lock-btn" title="Modifica ADR (richiede password)" style="background:transparent;border:1px solid rgba(255,255,255,0.06); color:#fff; padding:6px 10px; border-radius:8px; cursor:pointer; display:flex; align-items:center; gap:8px;">
+      <svg id="lock-icon" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color:#fff;"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+      <span id="lock-label" style="font-weight:700; color:#fff;">Modifica ADR</span>
+    </button>
+    <div id="adr-editor" style="display:none; gap:8px; align-items:center;">
+      <input id="adr-password" type="password" placeholder="Password" style="padding:6px 8px; border-radius:6px; border:1px solid rgba(255,255,255,0.06); background:transparent; color:#fff; width:110px;" />
+      <input id="adr-input" type="number" min="0" step="0.01" placeholder="ADR" style="padding:6px 8px; border-radius:6px; border:1px solid rgba(255,255,255,0.06); background:transparent; color:#fff; width:100px; display:none;" />
+      <button id="adr-unlock" style="padding:6px 10px; border-radius:6px; border:1px solid rgba(255,255,255,0.06); background:transparent; color:#fff; cursor:pointer; display:inline-block;">Sblocca</button>
+      <button id="adr-save" style="padding:6px 10px; border-radius:6px; border:1px solid rgba(255,255,255,0.06); background:var(--green-palette); color:#000; cursor:pointer; display:none;">Salva</button>
+      <button id="adr-cancel" style="padding:6px 10px; border-radius:6px; border:1px solid rgba(255,255,255,0.06); background:transparent; color:#fff; cursor:pointer; display:none;">Annulla</button>
+    </div>
+  </div>
+
+  <div class="policy-grid">
+    <div class="policy-card" id="standard">
+      <div class="card-header">STANDARD STAY (1-13 NT)</div>
+      <div class="card-info">
+        Modello: <b>Plug &amp; Play</b><br>
+        Tariffa: <b>ADR piena</b><br>
+        Utenze: <b>Incluse + surcharge stagionale</b><br>
+        Pulizia: <b>45,00€ finale</b><br>
+        Garanzie: <b>Blocco carta o polizza</b>
+      </div>
+    </div>
+    <div class="policy-card" id="long">
+      <div class="card-header">LONG STAY (14-29 NT)</div>
+      <div class="card-info">
+        Pricing: <b>Tiered ADR su giorni 14-29</b><br>
+        Benefit: <b>Soft Pack IT</b><br>
+        Utenze: <b>Incluse + surcharge stagionale</b><br>
+        Pulizie: <b>80€ finale + 40€/14gg + audit</b><br>
+        Tassa: <b>Prime 14 notti</b>
+      </div>
+    </div>
+    <div class="policy-card" id="extra">
+      <div class="card-header">EXTRA LONG (30-60 NT)</div>
+      <div class="card-info">
+        Pricing: <b>Tiered + piano pagamento</b><br>
+        Benefit: <b>Soft + Spirit Pack IT</b><br>
+        Utenze: <b>Forfait + Fair Use</b><br>
+        Parcheggio: <b>Agevolazione selettiva</b><br>
+        Garanzie: <b>Polizza + deposito + penale copribile da garanzia</b>
+      </div>
+    </div>
+    <div class="policy-card" id="smart">
+      <div class="card-header">SMART RESIDENT (61-90 NT)</div>
+      <div class="card-info">
+        Pricing: <b>Tiered premium</b><br>
+        Benefit: <b>Pacchetto premium + priorità</b><br>
+        Utenze: <b>Forfait + Fair Use</b><br>
+        Parcheggio: <b>Possibile omaggio</b><br>
+        Pulizie: <b>Fedeltà: Mese 2 scontato, Mese 3 omaggiabile</b>
+      </div>
+    </div>
+    <div class="policy-card" id="flex">
+      <div class="card-header">FLEX STAY (RINNOVO)</div>
+      <div class="card-info">
+        Modello: <b>Nessun blocco lungo</b><br>
+        Tariffa: <b>ADR piena, nessuno sconto</b><br>
+        Recesso: <b>Nessuna penale alla fine del periodo pagato</b><br>
+        Disponibilità: <b>Non garantita oltre il periodo saldato</b><br>
+        Garanzie: <b>Standard</b>
+      </div>
+    </div>
+  </div>
+
+  <div class="simulator-section">
+    <div class="controls-col">
+      <label class="input-label">Check-in</label>
+            <input type="date" id="checkin-date" class="dropdown" onchange="syncDates()">
+
+            <label class="input-label">Check-out</label>
+            <input type="date" id="checkout-date" class="dropdown" onchange="syncDates()">
+
+            <label class="input-label">Notti di soggiorno: <span class="days-value" id="days-display">0</span></label>
+            <input type="range" id="days-slider" min="1" max="90" value="1" oninput="syncSlider()">
+
+            <label class="input-label" style="margin-top:20px;">Lingua Ospite</label>
+            <select class="dropdown" id="lang-select" onchange="changeLanguage()">
+                <option value="it">Italiano</option>
+                <option value="en">English</option>
+                <option value="fr">Français</option>
+                <option value="es">Español</option>
+                <option value="de">Deutsch</option>
+            </select>
+
+            <label class="input-label" style="margin-top:20px;">Stagionalità</label>
+      <select id="season-select" class="dropdown" onchange="calculate()">
+        <option value="summer">Estate</option>
+        <option value="winter">Inverno</option>
+      </select>
+
+      <label class="input-label">Alloggio</label>
+      <select id="property-select" class="dropdown" onchange="calculate()">
+        <option value="suite">NoLo Suite</option>
+        <option value="nest">NoLo Nest</option>
+        <option value="studio">NoLo Studio</option>
+        <option value="heritage">NoLo Heritage</option>
+      </select>
+
+      <label class="input-label">Modello contratto</label>
+      <select id="contract-mode" class="dropdown" onchange="calculate()">
+        <option value="guaranteed">Guaranteed</option>
+        <option value="flex">Flex Stay</option>
+      </select>
+
+      <label class="input-label">Modalità pagamento</label>
+      <select id="pay-mode" class="dropdown" onchange="calculate()">
+        <option value="weekly">Settimanale</option>
+        <option value="monthly">Mensile anticipato</option>
+        <option value="full">Totale anticipato</option>
+      </select>
+        <input type="checkbox" id="parking-checkbox" onchange="calculate()" style="accent-color: var(--green-palette);">
+        Richiedi posto auto / benefit mobilità
+      </label>
+
+      <div class="mini-grid">
+        <div>
+          <label class="input-label">ADR corrente alloggio (€)</label>
+          <input class="money-input" id="adr-readonly" type="number" value="0" readonly>
+        </div>
+        <div>
+          <label class="input-label">ADR contesto</label>
+          <input class="money-input" id="adr-context" type="text" value="Base annuale" readonly>
+        </div>
+        <div>
+          <label class="input-label">Overuse reale stimato (€)</label>
+          <input class="money-input" id="real-overuse" type="number" min="0" step="0.01" value="0" oninput="calculate()">
+        </div>
+        <div>
+          <label class="input-label">Danni residuali stimati (€)</label>
+          <input class="money-input" id="real-damage" type="number" min="0" step="0.01" value="0" oninput="calculate()">
+        </div>
+      </div>
+    </div>
+
+    <div class="results-col">
+      <div class="price-breakdown">
+        <div class="price-line"><span>Soggiorno lordo (<span id="res-days">80</span> nt)</span><span class="value">€ <span id="stay-gross">0.00</span></span></div>
+        <div class="price-line"><span>Sconto tiered ADR</span><span class="value" style="color:var(--green-palette);">- € <span id="tiered-discount">0.00</span></span></div>
+        <div class="price-line"><span>Sconto modalità pagamento</span><span class="value" style="color:var(--green-palette);">- € <span id="payment-discount">0.00</span></span></div>
+        <div class="price-line"><span>Canone netto soggiorno</span><span class="value">€ <span id="stay-net">0.00</span></span></div>
+        <div class="price-line"><span>Utenze / surcharge / forfait</span><span class="value">€ <span id="util-cost">0.00</span></span></div>
+        <div class="price-line"><span>Imposta registro / bolli</span><span class="value">€ <span id="reg-cost">0.00</span></span></div>
+        <div class="price-line"><span>Pulizie intermedie programmate</span><span class="value">€ <span id="cleaning-cost">0.00</span></span></div>
+        <div class="price-line"><span>Audit tecnico (-10gg)</span><span class="value">€ <span id="audit-cost">0.00</span></span></div>
+        <div class="price-line"><span>Pulizia finale ripristino</span><span class="value">€ <span id="final-clean-cost">0.00</span></span></div>
+        <div class="price-line"><span>Quota parcheggio / mobilità</span><span class="value">€ <span id="parking-cost">0.00</span></span></div>
+        <div class="price-line"><span>Tassa soggiorno + servizio</span><span class="value">€ <span id="tax-cost">0.00</span></span></div>
+      </div>
+
+      <div id="active-benefits" class="benefit-badge"></div>
+
+      <div class="total-price">€ <span id="final-total">0.00</span></div>
+      <div class="summary-chip" id="model-summary">Guaranteed / Calendario bloccato</div>
+      <div class="summary-chip" id="adr-summary" style="margin-left:8px;">ADR alloggio: € 0.00</div>
+      <div class="summary-chip" id="property-summary" style="margin-left:8px;">Alloggio: -</div>
+
+      <div class="premium-card" style="margin-top:16px; text-align:left;">
+        <h3 style="margin-bottom:10px;">Tutela economica stimata</h3>
+        <div class="price-breakdown">
+          <div class="price-line"><span>Penale massima teorica</span><span class="value">€ <span id="guarantee-discount">0.00</span></span></div>
+          <div class="price-line"><span>Consumi / overuse stimati</span><span class="value">€ <span id="guarantee-energy">0.00</span></span></div>
+          <div class="price-line"><span>Danni residuali stimati</span><span class="value">€ <span id="guarantee-damage">0.00</span></span></div>
+          <div class="price-line"><span>Totale tutela economica</span><span class="value">€ <span id="guarantee-total">0.00</span></span></div>
+        </div>
+        <div class="sim-note" id="guarantee-note"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="simulator-section" style="margin-top:-8px;">
+    <div class="controls-col">
+      <h3 style="margin-top:0; color: var(--green-palette);">Planner operativo soggiorno</h3>
+      <div class="price-breakdown" id="schedule-overview">
+        <div class="price-line"><span>Data check-in</span><span class="value" id="plan-checkin">-</span></div>
+        <div class="price-line"><span>Data check-out</span><span class="value" id="plan-checkout">-</span></div>
+        <div class="price-line"><span>Audit tecnico (-10gg)</span><span class="value" id="plan-audit-date">-</span></div>
+        <div class="price-line"><span>Preavviso minimo recesso</span><span class="value" id="plan-notice-date">-</span></div>
+        <div class="price-line"><span>50% soggiorno</span><span class="value" id="plan-half-date">-</span></div>
+        <div class="price-line"><span>83% soggiorno</span><span class="value" id="plan-eighty3-date">-</span></div>
+      </div>
+      <div class="sim-note" id="recesso-summary"></div>
+    </div>
+
+    <div class="results-col" style="text-align:left;">
+      <h3 style="margin-top:0; color: var(--green-palette);">Calendario pulizie, benefit e penale</h3>
+      <div class="price-breakdown" id="cleaning-schedule"></div>
+      <div class="sim-note" id="benefit-timeline" style="margin-top:12px;"></div>
+      <div class="sim-note" id="penalty-timeline" style="margin-top:12px;"></div>
+    </div>
+  </div>
+
+  <button class="accordion">1. PANORAMICA COSTI, PAGAMENTI E GARANZIE <span>▼</span></button>
+  <div class="panel"><div class="panel-inner">
+    <h3>1. Costi, pagamenti e logica dei modelli</h3>
+    <p><strong>Tassa di soggiorno (Milano):</strong> indicata in simulazione per le prime 14 notti, salvo esenzioni o aggiornamenti normativi applicabili.</p>
+    <p><strong>Costo di servizio:</strong> €15,00 per soggiorno.</p>
+    <p><strong>Modello Guaranteed:</strong> offre blocco calendario, condizioni agevolate, benefit e maggiore prevedibilità economica.</p>
+    <p><strong>Modello Flex Stay:</strong> nessuno sconto legato alla durata, nessuna penale di uscita alla fine del periodo già saldato, ma nessuna garanzia di disponibilità per il periodo successivo.</p>
+    <p><strong>Modalità pagamento (Guaranteed &gt; 30 notti):</strong></p>
+    <ul>
+      <li><strong>Settimanale / ricorrente:</strong> nessuno sconto aggiuntivo.</li>
+      <li><strong>Mensile anticipato:</strong> sconto extra del 5% sul canone netto.</li>
+      <li><strong>Totale anticipato:</strong> sconto extra del 10% sul canone netto.</li>
+    </ul>
+
+    <h3>2. Garanzie economiche e protezione danni</h3>
+    <p><strong>Soggiorni inferiori a 30 notti:</strong> blocco carta o polizza protezione danni, secondo il percorso di prenotazione.</p>
+    <p><strong>Soggiorni pari o superiori a 30 notti:</strong> si applicano tre livelli di tutela distinti:</p>
+    <ul>
+      <li><strong>Polizza danni obbligatoria</strong> o protezione equivalente provider;</li>
+      <li><strong>Deposito cauzionale</strong> di riferimento per il soggiorno lungo;</li>
+      <li><strong>Penale di recesso dedicata</strong>, fissa, limitata e sempre separata da consumi extra, danni residuali e servizi già erogati.</li>
+    </ul>
+    <div class="highlight-box">
+      <strong>Principio aggiornato:</strong> il recesso è sempre possibile. La penale non è più legata agli sconti e non è più punitiva: è fissa, limitata, prevedibile e copribile dalla garanzia dedicata. Danni, overuse e servizi già erogati vengono invece conteggiati separatamente a consuntivo reale.
+    </div>
+  </div></div>
+
+  <button class="accordion">2. RECESSO ANTICIPATO, PENALI E RESTITUZIONE PROGRESSIVA <span>▼</span></button>
+  <div class="panel"><div class="panel-inner">
+    <h3>1. Modello Guaranteed (soggiorni 30+)</h3>
+    <p><strong>Principio base:</strong> il recesso anticipato è sempre consentito. La penale applicabile non è collegata allo sconto riconosciuto, ma segue una logica fissa, limitata e prevedibile, distinta da danni, consumi extra (overuse) e servizi già erogati.</p>
+    <p><strong>Preavviso:</strong> il recesso produce effetti dal momento della comunicazione scritta ricevuta dal Gestore. Per beneficiare della riduzione è richiesto un preavviso minimo di 10 giorni.</p>
+
+    <h3>2. Penali massime per durata prenotata</h3>
+    <table class="fair-use-table">
+      <thead>
+        <tr><th>Durata soggiorno prenotato</th><th>Penale massima applicabile</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>30–44 notti</td><td>€250</td></tr>
+        <tr><td>45–60 notti</td><td>€350</td></tr>
+        <tr><td>61+ notti</td><td>€500</td></tr>
+      </tbody>
+    </table>
+
+    <h3>3. Regola del preavviso e riduzioni progressive</h3>
+    <p><strong>Senza preavviso, o con preavviso inferiore a 10 giorni:</strong> si applica fino al 100% della penale massima prevista per la fascia di durata del soggiorno.</p>
+    <p><strong>Con preavviso minimo di 10 giorni:</strong> la penale effettiva si riduce in base alla percentuale di soggiorno completata, calcolata sul totale delle notti prenotate.</p>
+
+    <table class="fair-use-table">
+      <thead>
+        <tr><th>Percentuale di soggiorno completata</th><th>Penale applicabile con preavviso valido</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Inferiore al 50%</td><td>100% della penale massima</td></tr>
+        <tr><td>Dal 50% all'83%</td><td>50% della penale massima</td></tr>
+        <tr><td>Oltre l'83%</td><td>€75 quale costo amministrativo di uscita</td></tr>
+      </tbody>
+    </table>
+
+    <p><strong>Soglie temporali chiave:</strong> al 50% del soggiorno matura la prima riduzione; oltre l'83% l'uscita diventa quasi gratuita e resta dovuto solo il costo amministrativo finale.</p>
+
+    <h3>4. Voci escluse dalla penale</h3>
+    <ul>
+      <li><strong>Danni all'immobile</strong> o agli arredi;</li>
+      <li><strong>Consumi extra / Overuse</strong> rilevati a consuntivo;</li>
+      <li><strong>Servizi già erogati</strong> o già programmati e non recuperabili.</li>
+    </ul>
+
+    <p><strong>Principio di chiusura:</strong> la penale rappresenta l'unico costo di recesso anticipato, salvo quanto dovuto separatamente per danni, consumi e servizi già fruiti o già maturati.</p>
+
+    <h3>5. Modello Flex Stay</h3>
+    <p>Nel modello Flex Stay non si applicano penali di uscita alla scadenza del periodo pagato. L'ospite, però, non matura sconti collegati alla durata e non gode del blocco lungo del calendario.</p>
+</div></div>
+
+  <button class="accordion">3. SERVIZI DI PULIZIA, AUDIT E BACK-SCHEDULING <span>▼</span></button>
+  <div class="panel"><div class="panel-inner">
+    <p><strong>Nuova logica operativa:</strong> gli interventi sono programmati a ritroso rispetto al check-out, così da garantire copertura igienica, continuità operativa e riduzione dei tempi di ripristino finale.</p>
+    <p><strong>Audit tecnico &amp; pre-cleaning:</strong> previsto indicativamente a 10 giorni dal check-out per verifica stato alloggio, micro-inventario e preparazione ripristino.</p>
+    <p><strong>Pulizie intermedie:</strong> programmate ogni 14 giorni per i soggiorni che lo richiedono, con logica fedeltà:</p>
+    <ul>
+      <li><strong>Mese 1:</strong> 100% a carico ospite.</li>
+      <li><strong>Mese 2:</strong> quota ridotta.</li>
+      <li><strong>Mese 3:</strong> possibile omaggio / assorbimento Host secondo modello o promozione.</li>
+    </ul>
+    <p><strong>Pulizia finale:</strong> €45 per soggiorni brevi; €80 per soggiorni lunghi, salvo condizioni migliorative indicate nel riepilogo economico.</p>
+  </div></div>
+
+  <button class="accordion">4. FAIR USE, OVERUSE E MILANO GREEN DEAL <span>▼</span></button>
+  <div class="panel"><div class="panel-inner">
+    <p><strong>Visione:</strong> la struttura promuove un uso responsabile delle risorse in coerenza con obiettivi di sostenibilità urbana e contenimento dei consumi.</p>
+    <p><strong>Soggiorni inferiori a 30 notti:</strong> utenze incluse con surcharge stagionale indicativa, senza franchigia giornaliera formalizzata.</p>
+    <p><strong>Soggiorni pari o superiori a 30 notti:</strong> applicazione di forfait utenze e policy Fair Use, con eventuale addebito di eccedenze a consuntivo.</p>
+
+    <h3>TABELLA 1: SOGLIE FAIR USE - ESTATE</h3>
+    <table class="fair-use-table">
+      <thead>
+        <tr><th>Alloggio</th><th>Soglia giornaliera</th><th>Soglia mensile indicativa</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>THE NOLO NEST / SUITE</td><td>8 kWh</td><td>240 kWh</td></tr>
+        <tr><td>THE NOLO STUDIO</td><td>6 kWh</td><td>180 kWh</td></tr>
+        <tr><td>THE NOLO HERITAGE</td><td>3 kWh</td><td>90 kWh</td></tr>
+      </tbody>
+    </table>
+
+    <h3>TABELLA 2: SOGLIE FAIR USE - INVERNO</h3>
+    <table class="fair-use-table">
+      <thead>
+        <tr><th>Alloggio</th><th>Riscaldamento</th><th>Elettricità</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>THE NOLO NEST</td><td>25 scatti/gg (750/mese)</td><td>6 kWh/gg</td></tr>
+        <tr><td>THE NOLO SUITE</td><td>20 scatti/gg (600/mese)</td><td>6 kWh/gg</td></tr>
+        <tr><td>THE NOLO STUDIO</td><td>14 scatti/gg (420/mese)</td><td>5 kWh/gg</td></tr>
+        <tr><td>THE NOLO HERITAGE</td><td>4 Smc/gg (120/mese)</td><td>3 kWh/gg</td></tr>
+      </tbody>
+    </table>
+
+    <h3>Listino Overuse</h3>
+    <p>Elettricità Extra: <strong>0,80 € / kWh</strong></p>
+    <p>Riscaldamento Centralizzato Extra: <strong>0,35 € / scatto</strong></p>
+    <p>Riscaldamento Autonomo Gas Extra: <strong>1,50 € / Smc</strong></p>
+  </div></div>
+
+  <button class="accordion">5. REGOLE DELLA CASA, ACCESSI E CONVIVENZA <span>▼</span></button>
+  <div class="panel"><div class="panel-inner">
+    <p><strong>Ospiti registrati:</strong> possono soggiornare solo le persone regolarmente registrate.</p>
+    <p><strong>Divieto di fumo:</strong> penale base €200 + eventuali costi di sanificazione e deodorizzazione.</p>
+    <p><strong>Animali:</strong> non ammessi salvo preventiva autorizzazione scritta.</p>
+    <p><strong>Quiete:</strong> rispetto della vita condominiale e del riposo dei vicini. Fasce di silenzio raccomandate: <strong>23:00 – 08:00</strong>.</p>
+    <p><strong>WC Sanitrit:</strong> ove presente, è vietato gettare materiali diversi dalla carta igienica. Eventuali danni da uso improprio sono integralmente addebitati.</p>
+    <p><strong>Raccolta differenziata:</strong> obbligatoria secondo le regole comunali e le istruzioni dell'alloggio.</p>
+    <p><strong>Accessi del Gestore:</strong> possibili con congruo preavviso per verifiche, manutenzione o interventi programmati, salvo casi urgenti o emergenze documentabili.</p>
+  </div></div>
+
+  <button class="accordion">6. BENEFIT, SCONTI E SERVIZI ACCESSORI <span>▼</span></button>
+  <div class="panel"><div class="panel-inner">
+    <p><strong>Soft Pack IT:</strong> benefit base per soggiorni medio-lunghi.</p>
+    <p><strong>Spirit Pack IT:</strong> benefit aggiuntivo per soggiorni 30+ o modelli premium.</p>
+    <p><strong>Mobilità / Parcheggio:</strong> può assumere forma di quota ridotta, agevolazione o omaggio, in funzione del modello, della durata e della promozione applicata.</p>
+    <p><strong>Principio generale:</strong> i benefit sono legati al modello di soggiorno scelto e alle condizioni del preventivo; in caso di recesso anticipato, decadono per la parte non maturata.</p>
+  </div></div>
+
+  <button class="accordion">7. ALLEGATO A – INFORMATIVA PRIVACY &amp; GDPR (14 PUNTI) <span>▼</span></button>
+  <div class="panel"><div class="panel-inner">
+    <span class="privacy-item"><b>1. Titolare:</b> 2EMME RE&amp;CONSULTING di Matteo Masella, Via Pietro Colletta 70, Milano.</span>
+    <span class="privacy-item"><b>2. DPO:</b> Non nominato. Contatti: matteo.masella@duemmeconsulting.it.</span>
+    <span class="privacy-item"><b>3. Finalità:</b> esecuzione contratto, adempimenti di pubblica sicurezza, obblighi fiscali, tutela dell'immobile e gestione danni / consumi.</span>
+    <span class="privacy-item"><b>4. Basi giuridiche:</b> contratto, obbligo legale e legittimo interesse nei limiti applicabili.</span>
+    <span class="privacy-item"><b>5. Dati trattati:</b> identificativi, documenti, contatti, dati di pagamento e dati tecnici collegati ai consumi / gestione soggiorno.</span>
+    <span class="privacy-item"><b>6. Modalità:</b> strumenti digitali e cartacei, accessi controllati, connessioni cifrate.</span>
+    <span class="privacy-item"><b>7. Destinatari:</b> autorità competenti, consulenti, fornitori tecnici, provider di check-in e gestione prenotazione.</span>
+    <span class="privacy-item"><b>8. Trasferimenti:</b> solo ove consentiti e con adeguate garanzie.</span>
+    <span class="privacy-item"><b>9. Conservazione:</b> secondo i termini previsti dalla normativa applicabile e dalle finalità del trattamento.</span>
+    <span class="privacy-item"><b>10. Diritti:</b> accesso, rettifica, cancellazione, limitazione, opposizione e reclamo al Garante.</span>
+    <span class="privacy-item"><b>11-14. Sicurezza e note:</b> misure tecniche e organizzative adeguate, gestione delle richieste e canali di contatto dedicati.</span>
+  </div></div>
+
+  <section id="contratto-fac-smile" style="margin-top:22px;">
+    <button class="accordion">CONTRATTO DI OSPITALITÀ (CAV) – TESTO SINTETICO AGGIORNATO <span>▼</span></button>
+    <div class="panel">
+      <div class="panel-inner" style="text-align:left; font-size:14px; color:#e6eef0;">
+        <h3 style="color:#54C4A6; font-weight:800;">Premessa</h3>
+        <p>Il presente quadro contrattuale regola il rapporto tra Gestore e Ospite per soggiorni in struttura ricettiva extralberghiera CAV. Il documento informativo, il riepilogo economico e gli allegati costituiscono parte integrante dell'accordo.</p>
+        <h3 style="color:#54C4A6; font-weight:800;">ART. 1 – Oggetto</h3>
+        <p>L'unità immobiliare è concessa per finalità di soggiorno temporaneo secondo il modello selezionato in fase di prenotazione: Guaranteed oppure Flex Stay.</p>
+        <h3 style="color:#54C4A6; font-weight:800;">ART. 2 – Corrispettivo e servizi</h3>
+        <p>Il prezzo del soggiorno deriva dal preventivo confermato, tenendo conto di durata, modello scelto, modalità di pagamento, benefit, costi di servizio, pulizie, utenze e condizioni energetiche applicabili.</p>
+        <h3 style="color:#54C4A6; font-weight:800;">ART. 3 – Pagamenti</h3>
+        <p>Per soggiorni brevi è normalmente richiesto il saldo anticipato. Per soggiorni 30+ il piano economico può essere ricorrente, mensile anticipato o totale anticipato secondo il riepilogo economico.</p>
+        <h3 style="color:#54C4A6; font-weight:800;">ART. 4 – Garanzie</h3>
+        <p>Per soggiorni 30+ si applicano: polizza danni obbligatoria, eventuale deposito cauzionale di riferimento e una penale di recesso dedicata, fissa e limitata, sempre distinta da danni residuali, overuse e servizi già erogati.</p>
+        <h3 style="color:#54C4A6; font-weight:800;">ART. 5 – Recesso anticipato</h3>
+        <p>Nel modello Guaranteed, il recesso è sempre possibile. In assenza di preavviso, o con preavviso inferiore a 10 giorni, può applicarsi fino al 100% della penale massima prevista per la fascia di durata prenotata. Con preavviso minimo di 10 giorni, la penale si riduce in base alla percentuale di soggiorno completata: 100% sotto il 50%, 50% tra il 50% e l'83%, solo €75 oltre l'83% quale costo amministrativo di uscita.</p>
+        <p>Nel modello Flex Stay non si applicano penali di uscita alla fine del periodo già saldato, ma non vi è garanzia di disponibilità per periodi successivi non ancora coperti finanziariamente.</p>
+        <h3 style="color:#54C4A6; font-weight:800;">ART. 6 – Fair Use e Overuse</h3>
+        <p>Per i soggiorni lunghi si applicano soglie di utilizzo ragionevole delle risorse e, in caso di superamento, addebiti a consuntivo secondo il listino indicato nella documentazione.</p>
+        <h3 style="color:#54C4A6; font-weight:800;">ART. 7 – Regole della casa</h3>
+        <p>Divieto di fumo, rispetto della quiete, accessi solo per ospiti registrati, corretta raccolta differenziata, divieto di uso improprio degli impianti e rispetto delle procedure di check-in e check-out.</p>
+        <h3 style="color:#54C4A6; font-weight:800;">ART. 8 – Privacy</h3>
+        <p>I dati personali sono trattati secondo l'informativa privacy allegata e la normativa applicabile.</p>
+        <h3 style="color:#54C4A6; font-weight:800;">ART. 9 – Legge applicabile e competenza</h3>
+        <p>Il rapporto è regolato dalla legge italiana. Per gli ospiti qualificabili come consumatori resta ferma la disciplina del foro eventualmente applicabile secondo normativa vigente.</p>
+        <h3 style="color:#54C4A6; font-weight:800;">Approvazione specifica</h3>
+        <p>L'Ospite approva specificamente le clausole relative a pagamenti, garanzie, recesso, politica energetica, addebiti overuse, pulizie programmate, regole della casa e allegati informativi.</p>
+      </div>
+    </div>
+  </section>
+</div>
+
+<script type="text/javascript">
+  function googleTranslateElementInit() {
+    new google.translate.TranslateElement({pageLanguage: 'it'}, 'google_translate_element');
+  }
+</script>
+<script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
+<script>
+  (function(){
+    const PASSWORD = '3671';
+    const DEFAULT_ADR_MAP = { suite: 85, nest: 70, studio: 70, heritage: 80 };
+
+    function loadAdrMap() {
+      try {
+        const saved = JSON.parse(localStorage.getItem('2emme_adr_map') || '{}');
+        return { ...DEFAULT_ADR_MAP, ...saved };
+      } catch (err) {
+        return { ...DEFAULT_ADR_MAP };
+      }
+    }
+
+    window.ADR_MAP = loadAdrMap();
+
+    window.getCurrentADR = function(propertyKey){
+      return window.ADR_MAP[propertyKey] !== undefined ? Number(window.ADR_MAP[propertyKey]) : 80;
+    };
+
+    window.setCurrentADR = function(propertyKey, value){
+      window.ADR_MAP[propertyKey] = Number(value);
+      localStorage.setItem('2emme_adr_map', JSON.stringify(window.ADR_MAP));
+    };
+
+    const lockBtn = document.getElementById('lock-btn');
+    const adrEditor = document.getElementById('adr-editor');
+    const pwdInput = document.getElementById('adr-password');
+    const adrInput = document.getElementById('adr-input');
+    const unlockBtn = document.getElementById('adr-unlock');
+    const saveBtn = document.getElementById('adr-save');
+    const cancelBtn = document.getElementById('adr-cancel');
+    const lockLabel = document.getElementById('lock-label');
+
+    function getSelectedProperty() {
+      return (document.getElementById('property-select') || {}).value || 'suite';
+    }
+
+    lockBtn.addEventListener('click', function(){
+      adrEditor.style.display = adrEditor.style.display === 'flex' ? 'none' : 'flex';
+      adrEditor.style.flexDirection = 'row';
+      pwdInput.style.display = 'inline-block';
+      adrInput.style.display = 'none';
+      saveBtn.style.display = 'none';
+      cancelBtn.style.display = 'none';
+      unlockBtn.style.display = 'inline-block';
+      pwdInput.value = '';
+      adrInput.value = window.getCurrentADR(getSelectedProperty());
+      lockBtn.classList.remove('unlocked', 'error');
+    });
+
+    unlockBtn.addEventListener('click', function(){
+      if ((pwdInput.value || '') === PASSWORD) {
+        adrInput.style.display = 'inline-block';
+        saveBtn.style.display = 'inline-block';
+        cancelBtn.style.display = 'inline-block';
+        unlockBtn.style.display = 'none';
+        pwdInput.style.display = 'none';
+        adrInput.value = window.getCurrentADR(getSelectedProperty());
+        lockBtn.classList.add('unlocked');
+        lockBtn.classList.remove('error');
+      } else {
+        lockBtn.classList.add('error');
+        setTimeout(() => lockBtn.classList.remove('error'), 900);
+        pwdInput.value = '';
+        pwdInput.focus();
+      }
+    });
+
+    saveBtn.addEventListener('click', function(){
+      const newAdr = parseFloat(adrInput.value);
+      if (!Number.isNaN(newAdr) && newAdr >= 0) {
+        window.setCurrentADR(getSelectedProperty(), newAdr);
+        if (typeof calculate === 'function') calculate();
+        lockLabel.innerText = 'ADR modificato';
+        adrEditor.style.display = 'none';
+      } else {
+        adrInput.focus();
+      }
+    });
+
+    cancelBtn.addEventListener('click', function(){ adrEditor.style.display = 'none'; });
+  })();
+
+  function getPropertyConfig(property){
+    const configs = {
+      suite: {
+        name: 'The NoLo Suite',
+        summerKwhDay: 8,
+        winterEnergyDay: 6,
+        winterHeatDay: 20,
+        heatUnit: 'scatti',
+        energyRisk: 180,
+        damageMin: 120,
+        parkingShortDaily: 12
+      },
+      nest: {
+        name: 'The NoLo Nest',
+        summerKwhDay: 8,
+        winterEnergyDay: 6,
+        winterHeatDay: 25,
+        heatUnit: 'scatti',
+        energyRisk: 180,
+        damageMin: 120,
+        parkingShortDaily: 12
+      },
+      studio: {
+        name: 'The NoLo Studio',
+        summerKwhDay: 6,
+        winterEnergyDay: 5,
+        winterHeatDay: 14,
+        heatUnit: 'scatti',
+        energyRisk: 150,
+        damageMin: 100,
+        parkingShortDaily: 10
+      },
+      heritage: {
+        name: 'The NoLo Heritage',
+        summerKwhDay: 3,
+        winterEnergyDay: 3,
+        winterHeatDay: 4,
+        heatUnit: 'Smc',
+        energyRisk: 120,
+        damageMin: 120,
+        parkingShortDaily: 10
+      }
+    };
+    return configs[property] || configs.suite;
+  }
+
+  function euro(num){ return '€ ' + Number(num || 0).toFixed(2); }
+
+  function syncDates() {
+    const checkin = document.getElementById('checkin-date').value;
+    const checkout = document.getElementById('checkout-date').value;
+
+    if (checkin && checkout) {
+        const d1 = new Date(checkin);
+        const d2 = new Date(checkout);
+        const diff = Math.ceil((d2 - d1) / (1000 * 60 * 60 * 24));
+
+        if (diff > 0) {
+            document.getElementById('days-slider').value = diff;
+            calculate();
+        }
+    }
+}
+
+function syncSlider() {
+    const days = parseInt(document.getElementById('days-slider').value);
+    document.getElementById('days-display').innerText = days;
+
+    const checkin = document.getElementById('checkin-date').value;
+    if (checkin) {
+        const d = new Date(checkin);
+        d.setDate(d.getDate() + days);
+        document.getElementById('checkout-date').value = d.toISOString().split('T')[0];
+    }
+
+    calculate();
+}
+
+
+function formatDateIT(date) {
+    if (!(date instanceof Date) || Number.isNaN(date.getTime())) return '-';
+    return date.toLocaleDateString('it-IT');
+}
+
+function addDays(date, days) {
+    const d = new Date(date);
+    d.setDate(d.getDate() + days);
+    return d;
+}
+
+function clampDateToStay(baseDate, checkin, checkout) {
+    if (!(baseDate instanceof Date) || Number.isNaN(baseDate.getTime())) return null;
+    if (checkin && baseDate < checkin) return new Date(checkin);
+    if (checkout && baseDate > checkout) return new Date(checkout);
+    return baseDate;
+}
+
+function getPenaltyMax(days, contractMode) {
+    if (contractMode === 'flex' || days < 30) return 0;
+    if (days >= 61) return 500;
+    if (days >= 45) return 350;
+    return 250;
+}
+
+function getMidStayBenefits(days, contractMode, requestParking) {
+    const items = [];
+    if (contractMode === 'flex') {
+      items.push('Flex Stay: uscita libera a fine periodo pagato, senza sconti durata e senza blocco lungo.');
+      return items;
+    }
+    if (days >= 14) items.push('Dal giorno 14: Soft Pack IT attivo.');
+    if (days >= 30) items.push('Dal giorno 30: Spirit Pack IT attivo e logica long stay consolidata.');
+    if (days >= 61) items.push('Dal giorno 61: profilo Smart Resident con vantaggi premium.');
+    if (requestParking && days >= 61) items.push('Mobilità/parcheggio: agevolazione attiva dal profilo 61+ notti.');
+    else if (requestParking && days >= 30) items.push('Mobilità/parcheggio: quota agevolata flat long stay.');
+    return items;
+}
+
+function buildCleaningSchedule(checkinDate, checkoutDate, days) {
+    const events = [];
+    if (!(checkinDate instanceof Date) || Number.isNaN(checkinDate.getTime()) || !(checkoutDate instanceof Date) || Number.isNaN(checkoutDate.getTime())) {
+      return events;
+    }
+
+    if (days >= 14) {
+      const auditDate = addDays(checkoutDate, -10);
+      events.push({label: 'Audit tecnico / pre-cleaning', date: clampDateToStay(auditDate, checkinDate, checkoutDate), type: 'audit'});
+    }
+
+    const numIntermedie = days > 13 ? Math.floor((Math.max(days - 10, 0)) / 14) : 0;
+    for (let i = 1; i <= numIntermedie; i++) {
+      const offset = i * 14;
+      const eventDate = addDays(checkinDate, offset);
+      if (eventDate < checkoutDate) {
+        let costLabel = '€40';
+        if (offset > 60) costLabel = 'omaggio / assorbita';
+        else if (offset > 30) costLabel = '€20';
+        events.push({label: 'Pulizia intermedia #' + i + ' (' + costLabel + ')', date: eventDate, type: 'cleaning'});
+      }
+    }
+
+    events.push({label: 'Pulizia finale / ripristino', date: checkoutDate, type: 'checkout'});
+    events.sort((a, b) => a.date - b.date);
+    return events;
+}
+
+
+function changeLanguage() {
+    const lang = document.getElementById('lang-select').value;
+    const select = document.querySelector('.goog-te-combo');
+    if (select) {
+        select.value = lang;
+        select.dispatchEvent(new Event('change'));
+    }
+}
+
+
+function calculate() {
+    const days = parseInt(document.getElementById('days-slider').value, 10);
+    const season = document.getElementById('season-select').value;
+    const payMode = document.getElementById('pay-mode').value;
+    const requestParking = document.getElementById('parking-checkbox').checked;
+    const property = document.getElementById('property-select').value;
+    const contractMode = document.getElementById('contract-mode').value;
+    const realOveruse = parseFloat(document.getElementById('real-overuse').value) || 0;
+    const realDamage = parseFloat(document.getElementById('real-damage').value) || 0;
+
+    const config = getPropertyConfig(property);
+    const adrBase = window.getCurrentADR(property);
+
+    document.getElementById('days-display').innerText = days;
+    document.getElementById('res-days').innerText = days;
+    document.getElementById('adr-readonly').value = adrBase.toFixed(2);
+    document.getElementById('adr-context').value = season === 'summer' ? 'Base annuale / simulazione estate' : 'Base annuale / simulazione inverno';
+
+    const checkinValue = document.getElementById('checkin-date').value;
+    const checkoutValue = document.getElementById('checkout-date').value;
+    let checkinDate = checkinValue ? new Date(checkinValue) : null;
+    let checkoutDate = checkoutValue ? new Date(checkoutValue) : null;
+
+    if (!(checkinDate instanceof Date) || Number.isNaN(checkinDate?.getTime())) {
+      checkinDate = new Date();
+      checkinDate.setHours(0, 0, 0, 0);
+      document.getElementById('checkin-date').value = checkinDate.toISOString().split('T')[0];
+    }
+    if (!(checkoutDate instanceof Date) || Number.isNaN(checkoutDate?.getTime())) {
+      checkoutDate = addDays(checkinDate, days);
+      document.getElementById('checkout-date').value = checkoutDate.toISOString().split('T')[0];
+    }
+
+    const actualDiff = Math.ceil((checkoutDate - checkinDate) / (1000 * 60 * 60 * 24));
+    if (actualDiff > 0 && actualDiff !== days) {
+      document.getElementById('days-slider').value = actualDiff;
+      document.getElementById('days-display').innerText = actualDiff;
+      document.getElementById('res-days').innerText = actualDiff;
+    }
+    const stayDays = actualDiff > 0 ? actualDiff : days;
+
+    const stayGross = adrBase * stayDays;
+
+    const daysStandard = Math.min(stayDays, 13);
+    const daysLong = Math.max(0, Math.min(stayDays - 13, 16));
+    const daysExtra = Math.max(0, Math.min(stayDays - 29, 31));
+    const daysSmart = Math.max(0, stayDays - 60);
+
+    let tieredNet;
+    if (contractMode === 'flex') {
+      tieredNet = stayGross;
+    } else {
+      tieredNet =
+        (daysStandard * adrBase) +
+        (daysLong * adrBase * 0.95) +
+        (daysExtra * adrBase * 0.90) +
+        (daysSmart * adrBase * 0.85);
+    }
+
+    const tieredDiscount = stayGross - tieredNet;
+
+    let paymentMultiplier = 1;
+    if (contractMode !== 'flex') {
+      if (payMode === 'monthly' && stayDays >= 30) paymentMultiplier = 0.95;
+      if (payMode === 'full' && stayDays >= 30) paymentMultiplier = 0.90;
+    }
+
+    const stayNet = tieredNet * paymentMultiplier;
+    const paymentDiscount = tieredNet - stayNet;
+
+    let util = 0;
+    if (stayDays < 30) {
+      const seasonalRate = season === 'summer' ? 0.04 : 0.05;
+      util = Math.min(stayNet * seasonalRate, 80);
+    } else {
+      const fullMonths = Math.floor(stayDays / 30);
+      const extraDays = stayDays % 30;
+      util = (fullMonths * 90) + (extraDays * 3);
+      util = Math.min(util, (fullMonths * 90) + 80);
+    }
+
+    let reg = 0;
+    if (stayDays >= 30) {
+      const baseReg = (stayNet * 0.02) + 16;
+      if (stayDays > 75) reg = 0;
+      else if (stayDays > 60) reg = baseReg * 0.5;
+      else reg = baseReg;
+    }
+
+    const auditCost = stayDays >= 14 ? 40 : 0;
+    const finalCleanCost = stayDays >= 30 ? 80 : 45;
+
+    const numIntermedie = stayDays > 13 ? Math.floor((Math.max(stayDays - 10, 0)) / 14) : 0;
+    let cleaningInterm = 0;
+    for (let i = 1; i <= numIntermedie; i++) {
+      const dayOfIntervention = i * 14;
+      if (dayOfIntervention > 60) cleaningInterm += 0;
+      else if (dayOfIntervention > 30) cleaningInterm += 20;
+      else cleaningInterm += 40;
+    }
+
+    let parkingCost = 0;
+    if (requestParking) {
+      if (contractMode === 'flex') parkingCost = stayDays * config.parkingShortDaily;
+      else if (stayDays >= 61) parkingCost = 0;
+      else if (stayDays >= 30) parkingCost = 150;
+      else parkingCost = stayDays * config.parkingShortDaily;
+    }
+
+    const tax = 9.5 * Math.min(stayDays, 14);
+    const serviceFee = 15;
+    const finalTotal = stayNet + util + reg + cleaningInterm + auditCost + finalCleanCost + parkingCost + tax + serviceFee;
+
+    const effectiveDailyAverage = stayDays > 0 ? (stayNet / stayDays) : 0;
+    const maxPenalty = getPenaltyMax(stayDays, contractMode);
+    const guaranteeDiscount = maxPenalty;
+    const guaranteeEnergy = stayDays >= 30 ? realOveruse : 0;
+    const guaranteeDamage = stayDays >= 30 ? realDamage : 0;
+    const guaranteeTotal = guaranteeDiscount + guaranteeEnergy + guaranteeDamage;
+
+    const benefits = [];
+    if (contractMode === 'guaranteed' && stayDays >= 14) benefits.push('✓ Soft Pack IT');
+    if (contractMode === 'guaranteed' && stayDays >= 30) benefits.push('✓ Spirit Pack IT');
+    if (requestParking && contractMode === 'guaranteed' && stayDays >= 61) benefits.push('✓ Agevolazione mobilità attiva');
+    if (contractMode === 'flex') benefits.push('✓ Nessuna penale a fine periodo saldato');
+
+    document.getElementById('stay-gross').innerText = stayGross.toFixed(2);
+    document.getElementById('tiered-discount').innerText = tieredDiscount.toFixed(2);
+    document.getElementById('payment-discount').innerText = paymentDiscount.toFixed(2);
+    document.getElementById('stay-net').innerText = stayNet.toFixed(2);
+    document.getElementById('util-cost').innerText = util.toFixed(2);
+    document.getElementById('reg-cost').innerText = reg.toFixed(2);
+    document.getElementById('cleaning-cost').innerText = cleaningInterm.toFixed(2);
+    document.getElementById('audit-cost').innerText = auditCost.toFixed(2);
+    document.getElementById('final-clean-cost').innerText = finalCleanCost.toFixed(2);
+    document.getElementById('parking-cost').innerText = parkingCost.toFixed(2);
+    document.getElementById('tax-cost').innerText = (tax + serviceFee).toFixed(2);
+    document.getElementById('final-total').innerText = finalTotal.toFixed(2);
+
+    document.getElementById('guarantee-discount').innerText = guaranteeDiscount.toFixed(2);
+    document.getElementById('guarantee-energy').innerText = guaranteeEnergy.toFixed(2);
+    document.getElementById('guarantee-damage').innerText = guaranteeDamage.toFixed(2);
+    document.getElementById('guarantee-total').innerText = guaranteeTotal.toFixed(2);
+
+    const badgeEl = document.getElementById('active-benefits');
+    if (benefits.length > 0) {
+      badgeEl.style.display = 'block';
+      badgeEl.innerHTML = 'BENEFIT / CONDIZIONI ATTIVE:<br>' + benefits.join(' &nbsp;|&nbsp; ');
+    } else {
+      badgeEl.style.display = 'none';
+      badgeEl.innerHTML = '';
+    }
+
+    const payModeEl = document.getElementById('pay-mode');
+    if (contractMode === 'flex') {
+      payModeEl.value = 'weekly';
+      payModeEl.disabled = true;
+      document.getElementById('model-summary').innerText = 'Flex Stay / Nessun blocco lungo';
+    } else {
+      payModeEl.disabled = false;
+      document.getElementById('model-summary').innerText = 'Guaranteed / Calendario bloccato';
+    }
+
+    document.getElementById('adr-summary').innerText = 'ADR alloggio: ' + euro(adrBase);
+    document.getElementById('property-summary').innerText = 'Alloggio: ' + config.name;
+
+    let guaranteeNote = '';
+    if (contractMode === 'flex') {
+      guaranteeNote = 'Nel modello Flex non si applica alcuna penale di uscita alla fine del periodo pagato. Restano separati ed eventualmente dovuti soltanto danni, consumi extra o servizi già erogati, se presenti.';
+    } else {
+      guaranteeNote = 'Penale massima teorica per la durata selezionata: ' + euro(guaranteeDiscount) + '. Con preavviso minimo di 10 giorni la penale si riduce così: 100% sotto il 50% del soggiorno completato, 50% tra il 50% e l\'83%, solo € 75 oltre l\'83%. Consumi extra e danni residuali restano sempre separati e sono indicati qui a consuntivo simulato.';
+    }
+    document.getElementById('guarantee-note').innerText = guaranteeNote + ' ADR media effettiva simulata: ' + euro(effectiveDailyAverage) + ' / notte.';
+
+    const auditDate = stayDays >= 14 ? addDays(checkoutDate, -10) : null;
+    const noticeDate = contractMode === 'flex' ? null : addDays(checkoutDate, -10);
+    const halfDate = addDays(checkinDate, Math.ceil(stayDays * 0.50));
+    const eighty3Date = addDays(checkinDate, Math.ceil(stayDays * 0.83));
+
+    document.getElementById('plan-checkin').innerText = formatDateIT(checkinDate);
+    document.getElementById('plan-checkout').innerText = formatDateIT(checkoutDate);
+    document.getElementById('plan-audit-date').innerText = auditDate ? formatDateIT(auditDate) : 'non previsto';
+    document.getElementById('plan-notice-date').innerText = noticeDate ? formatDateIT(noticeDate) : 'non richiesto';
+    document.getElementById('plan-half-date').innerText = contractMode === 'flex' ? 'n/a' : formatDateIT(halfDate);
+    document.getElementById('plan-eighty3-date').innerText = contractMode === 'flex' ? 'n/a' : formatDateIT(eighty3Date);
+
+    const cleaningEvents = buildCleaningSchedule(checkinDate, checkoutDate, stayDays);
+    const cleaningEl = document.getElementById('cleaning-schedule');
+    cleaningEl.innerHTML = '';
+    if (cleaningEvents.length === 0) {
+      cleaningEl.innerHTML = '<div class="price-line"><span>Nessun evento pianificato</span><span class="value">-</span></div>';
+    } else {
+      cleaningEvents.forEach((event) => {
+        cleaningEl.innerHTML += '<div class="price-line"><span>' + event.label + '</span><span class="value">' + formatDateIT(event.date) + '</span></div>';
+      });
+    }
+
+    const benefitTimeline = getMidStayBenefits(stayDays, contractMode, requestParking);
+    document.getElementById('benefit-timeline').innerHTML = benefitTimeline.length
+      ? '<strong>Timeline benefit:</strong><br>' + benefitTimeline.join('<br>')
+      : '<strong>Timeline benefit:</strong><br>Nessun benefit aggiuntivo maturato per la configurazione selezionata.';
+
+    let penaltyTimeline = '';
+    if (contractMode === 'flex') {
+      penaltyTimeline = '<strong>Penale / recesso:</strong><br>Flex Stay: uscita libera alla fine del periodo pagato, senza penale.';
+    } else if (stayDays < 30) {
+      penaltyTimeline = '<strong>Penale / recesso:</strong><br>La logica penale 2026 si applica ai soggiorni 30+ notti.';
+    } else {
+      penaltyTimeline = '<strong>Penale / recesso:</strong><br>' +
+        'Penale massima fascia durata: ' + euro(maxPenalty) + '.<br>' +
+        'Fino al ' + formatDateIT(halfDate) + ': 100% penale con preavviso valido.<br>' +
+        'Dal ' + formatDateIT(halfDate) + ' al ' + formatDateIT(eighty3Date) + ': 50% penale con preavviso valido.<br>' +
+        'Dal ' + formatDateIT(eighty3Date) + ' in poi: solo € 75 costo amministrativo.<br>' +
+        'Senza preavviso o con preavviso insufficiente: fino al 100% della penale massima.';
+    }
+    document.getElementById('penalty-timeline').innerHTML = penaltyTimeline;
+
+    let recessoSummary = '';
+    if (contractMode === 'flex') {
+      recessoSummary = 'Flex Stay: nessun preavviso richiesto oltre il periodo già pagato. Verificare disponibilità per eventuali proroghe.';
+    } else if (stayDays < 30) {
+      recessoSummary = 'Per soggiorni inferiori a 30 notti non si attiva la penale fissa 2026. Restano applicabili solo costi già maturati, danni o extra.';
+    } else {
+      recessoSummary = 'Per ottenere la riduzione penale, il recesso deve essere comunicato per iscritto entro il ' + formatDateIT(noticeDate) + '. La prima soglia utile cade il ' + formatDateIT(halfDate) + '; oltre il ' + formatDateIT(eighty3Date) + ' resta dovuto solo il costo amministrativo di € 75.';
+    }
+    document.getElementById('recesso-summary').innerText = recessoSummary;
+  }
+
+
+  function runSelfTests() {
+    console.assert(window.getCurrentADR('suite') === 85 || typeof window.getCurrentADR('suite') === 'number', 'ADR suite should be numeric');
+    console.assert(window.getCurrentADR('nest') === 70 || typeof window.getCurrentADR('nest') === 'number', 'ADR nest should be numeric');
+    console.assert(window.getCurrentADR('studio') === 70 || typeof window.getCurrentADR('studio') === 'number', 'ADR studio should be numeric');
+    console.assert(window.getCurrentADR('heritage') === 80 || typeof window.getCurrentADR('heritage') === 'number', 'ADR heritage should be numeric');
+
+    const suiteCfg = getPropertyConfig('suite');
+    console.assert(suiteCfg.name === 'The NoLo Suite', 'Suite config should resolve correctly');
+
+    const before = window.getCurrentADR('suite');
+    window.setCurrentADR('suite', 91);
+    console.assert(window.getCurrentADR('suite') === 91, 'setCurrentADR should update ADR_MAP');
+    window.setCurrentADR('suite', before);
+
+    document.getElementById('contract-mode').value = 'guaranteed';
+    document.getElementById('days-slider').value = 30;
+    document.getElementById('real-overuse').value = 15;
+    document.getElementById('real-damage').value = 20;
+    calculate();
+    console.assert(document.getElementById('guarantee-discount').innerText === '250.00', '30 nights should show max penalty 250.00');
+    console.assert(document.getElementById('plan-half-date').innerText !== '-', 'Half-stay date should be populated');
+    console.assert(document.getElementById('cleaning-schedule').innerText.length > 0, 'Cleaning schedule should be populated');
+
+    document.getElementById('days-slider').value = 45;
+    calculate();
+    console.assert(document.getElementById('guarantee-discount').innerText === '350.00', '45 nights should show max penalty 350.00');
+
+    document.getElementById('days-slider').value = 61;
+    calculate();
+    console.assert(document.getElementById('guarantee-discount').innerText === '500.00', '61 nights should show max penalty 500.00');
+
+    document.getElementById('contract-mode').value = 'flex';
+    calculate();
+    console.assert(document.getElementById('guarantee-discount').innerText === '0.00', 'Flex should show no penalty');
+
+    const adrReadonly = document.getElementById('adr-readonly');
+    console.assert(adrReadonly && adrReadonly.value !== '', 'calculate should populate ADR readonly field');
+  }
+
+  document.querySelectorAll('.accordion').forEach(acc => {
+    acc.onclick = function() {
+      this.classList.toggle('active');
+      const panel = this.nextElementSibling;
+      panel.style.maxHeight = panel.style.maxHeight ? null : panel.scrollHeight + 'px';
+    };
+  });
+
+  calculate();
+  runSelfTests();
+</script>
+
+<script>
+  (function(){
+    let checkCount = 0;
+    function showHint() {
+      const el = document.getElementById('google_translate_element');
+      if (!el) return;
+      const hintId = 'translate-hint';
+      if (document.getElementById(hintId)) return;
+      const hint = document.createElement('div');
+      hint.id = hintId;
+      hint.style.marginTop = '8px';
+      hint.style.fontSize = '13px';
+      hint.style.color = '#f0e68c';
+      hint.innerText = 'Widget traduzione non disponibile.';
+      el.appendChild(hint);
+    }
+    function check() {
+      checkCount++;
+      if (window.google && window.google.translate && typeof window.google.translate.TranslateElement === 'function') return;
+      if (checkCount > 8) showHint();
+      else setTimeout(check, 500);
+    }
+    setTimeout(check, 500);
+  })();
+</script>
+</body>
+</html>
