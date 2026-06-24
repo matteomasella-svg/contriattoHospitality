@@ -1,10 +1,9 @@
-
 <!DOCTYPE html>
 <html lang="it">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>2EMME Apartments - Documentazione Ufficiale 2026</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>2EMME Apartments - Simulatore Pricing 2026 V2</title>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <style>
     :root {
@@ -13,674 +12,344 @@
       --text-main: #ffffff;
       --text-soft: #d9e4e7;
       --text-muted: #9bb2b8;
-      --ottanio-palette: #004D54;
-      --red-palette: #DB4F61;
-      --green-palette: #54C4A6;
-      --gold-palette: #d4af37;
-      --border: rgba(255, 255, 255, 0.1);
-      --glass: rgba(255, 255, 255, 0.03);
-      --glass-blur: blur(25px);
+      --ottanio: #004D54;
+      --red: #DB4F61;
+      --green: #54C4A6;
+      --gold: #d4af37;
+      --border: rgba(255, 255, 255, 0.12);
+      --glass: rgba(255, 255, 255, 0.035);
     }
 
     * { box-sizing: border-box; }
 
     body {
-      font-family: 'Plus Jakarta Sans', sans-serif;
-      background-color: var(--bg-dark);
-      background-image:
-        radial-gradient(circle at 10% 10%, rgba(0, 77, 84, 0.15) 0%, transparent 40%),
-        radial-gradient(circle at 90% 15%, rgba(84, 196, 166, 0.08) 0%, transparent 35%);
-      color: var(--text-main);
       margin: 0;
-      padding: 10px;
-      display: flex;
-      justify-content: center;
-      align-items: flex-start;
       min-height: 100vh;
+      padding: 16px;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      background:
+        radial-gradient(circle at 10% 10%, rgba(0, 77, 84, 0.22) 0%, transparent 36%),
+        radial-gradient(circle at 90% 10%, rgba(84, 196, 166, 0.12) 0%, transparent 34%),
+        var(--bg-dark);
+      color: var(--text-main);
     }
 
-    .glass-container {
+    .wrap {
+      width: 100%;
+      max-width: 1180px;
+      margin: 0 auto;
       background: var(--glass);
-      backdrop-filter: var(--glass-blur);
-      -webkit-backdrop-filter: var(--glass-blur);
       border: 1px solid var(--border);
       border-radius: 28px;
-      padding: 25px;
-      width: 100%;
-      max-width: 1160px;
-      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.5);
-      margin: 20px 0;
+      padding: 26px;
+      box-shadow: 0 24px 70px rgba(0, 0, 0, 0.52);
+      backdrop-filter: blur(22px);
     }
 
-    .brand-header { text-align: center; margin-bottom: 20px; }
-    .brand-logo { max-width: 220px; height: auto; margin-bottom: 15px; }
-    .hero-subtitle {
-      color: var(--text-soft);
-      font-size: 14px;
-      line-height: 1.7;
-      max-width: 860px;
-      margin: 12px auto 0;
+    header { text-align: center; margin-bottom: 24px; }
+    .logo { max-width: 220px; height: auto; margin-bottom: 14px; }
+    h1 { margin: 0; font-size: clamp(24px, 4vw, 42px); color: var(--green); }
+    .subtitle { max-width: 860px; margin: 12px auto 0; color: var(--text-soft); line-height: 1.7; font-size: 14px; }
+
+    .notice {
+      margin: 18px 0 26px;
+      border: 1px solid rgba(212, 175, 55, 0.35);
+      background: rgba(212, 175, 55, 0.08);
+      border-radius: 18px;
+      padding: 14px 16px;
+      color: #f7e7a2;
+      line-height: 1.6;
+      font-size: 13px;
     }
 
-    #google_translate_element { margin: 20px 0; text-align: center; min-height: 40px; }
-
-    .policy-grid {
+    .grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(195px, 1fr));
-      gap: 12px;
-      margin-bottom: 30px;
+      grid-template-columns: minmax(300px, 1fr) minmax(300px, 1fr);
+      gap: 22px;
+      align-items: start;
     }
 
-    .policy-card {
-      background: rgba(255, 255, 255, 0.02);
-      border-radius: 20px;
-      padding: 15px;
-      border-width: 2px;
-      border-style: solid;
-      min-height: 170px;
-    }
-
-    .card-header { color: var(--green-palette); font-weight: 800; margin-bottom: 10px; }
-    #standard { border-color: var(--ottanio-palette); }
-    #long { border-color: var(--green-palette); }
-    #extra { border-color: var(--red-palette); }
-    #smart { border-color: var(--gold-palette); }
-    #flex { border-color: #8a94a6; }
-
-    .card-info { font-size: 11px; color: #cbd5e0; line-height: 1.55; }
-    .card-info b { color: #fff; }
-
-    .simulator-section {
-      background: rgba(0, 0, 0, 0.3);
+    .card {
+      background: rgba(0, 0, 0, 0.28);
       border: 1px solid var(--border);
       border-radius: 22px;
-      padding: 25px;
-      display: flex;
-      flex-wrap: wrap;
-      gap: 20px;
-      margin-bottom: 30px;
+      padding: 22px;
     }
 
-    .controls-col { flex: 1.1; min-width: 300px; }
-    .results-col {
-      flex: 0.9;
-      min-width: 300px;
-      border-left: 1px solid var(--border);
-      padding-left: 25px;
-      text-align: right;
-    }
+    h2 { margin: 0 0 16px; color: var(--green); font-size: 20px; }
+    h3 { margin: 18px 0 10px; color: var(--green); font-size: 16px; }
 
-    .input-label {
-      font-size: 13px;
-      color: #a0aec0;
-      font-weight: 600;
+    label {
       display: block;
-      margin-bottom: 8px;
+      color: var(--text-muted);
+      font-weight: 700;
+      font-size: 13px;
+      margin: 14px 0 8px;
     }
 
-    .days-value { float: right; color: #fff; font-weight: 800; font-size: 18px; }
-
-    .dropdown, .money-input {
-      background: rgba(255,255,255,0.05);
+    input, select {
+      width: 100%;
       border: 1px solid var(--border);
       border-radius: 12px;
-      color: #fff;
+      background: rgba(255, 255, 255, 0.055);
+      color: var(--text-main);
       padding: 12px;
-      width: 100%;
       font-family: inherit;
       font-size: 14px;
-      margin-bottom: 15px;
       outline: none;
     }
 
-    .checkbox-label {
-      font-size: 13px;
-      color: #fff;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      margin-bottom: 15px;
-      cursor: pointer;
-    }
+    input[type="checkbox"] { width: auto; accent-color: var(--green); }
 
     .mini-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 10px;
-      margin-top: 10px;
-    }
-
-    .price-breakdown {
-      font-size: 13px;
-      color: #a0aec0;
-      line-height: 2.1;
-      text-align: left;
-    }
-
-    .price-line {
-      display: flex;
-      justify-content: space-between;
       gap: 12px;
-      border-bottom: 1px solid rgba(255,255,255,0.06);
-      padding: 2px 0;
     }
 
-    .price-breakdown span.value {
-      color: #fff;
-      font-weight: 600;
-      text-align: right;
-      min-width: 120px;
-    }
-
-    .total-price {
-      font-size: 34px;
-      font-weight: 800;
-      color: var(--green-palette);
-      margin-top: 15px;
-      border-top: 1px solid var(--border);
-      padding-top: 15px;
-    }
-
-    .summary-chip {
-      display: inline-block;
-      margin-top: 10px;
-      padding: 8px 12px;
-      border-radius: 999px;
-      background: rgba(255,255,255,0.06);
-      color: var(--text-soft);
-      font-size: 12px;
-      font-weight: 700;
-      border: 1px solid rgba(255,255,255,0.08);
-    }
-
-    .benefit-badge {
-      background: rgba(84, 196, 166, 0.1);
-      color: var(--green-palette);
-      padding: 8px 10px;
-      border-radius: 10px;
-      font-size: 11px;
-      font-weight: 800;
-      border: 1px solid var(--green-palette);
-      margin-top: 14px;
-      display: none;
-      text-align: left;
-      line-height: 1.6;
-    }
-
-    .sim-note {
-      margin-top: 14px;
-      font-size: 12px;
-      color: var(--text-muted);
-      line-height: 1.7;
-      text-align: left;
-    }
-
-    .accordion {
-      background: rgba(255, 255, 255, 0.04);
-      color: var(--green-palette);
-      cursor: pointer;
-      padding: 18px;
-      width: 100%;
-      border: 1px solid var(--border);
-      border-radius: 16px;
-      margin-top: 10px;
-      font-weight: 800;
+    .check-row {
       display: flex;
+      gap: 10px;
       align-items: center;
+      margin-top: 14px;
+      color: var(--text-soft);
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    .breakdown { display: grid; gap: 8px; }
+    .line {
+      display: flex;
       justify-content: space-between;
-      font-size: 15px;
-      text-align: left;
-      outline: none;
+      gap: 16px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid rgba(255,255,255,0.07);
+      color: var(--text-muted);
+      font-size: 13px;
+      line-height: 1.5;
+    }
+    .line .value { color: #fff; font-weight: 800; white-space: nowrap; }
+    .line.discount .value { color: var(--green); }
+
+    .total {
+      margin-top: 18px;
+      padding-top: 18px;
+      border-top: 1px solid var(--border);
+      font-size: clamp(30px, 5vw, 46px);
+      font-weight: 800;
+      color: var(--green);
+      text-align: right;
+    }
+
+    .chips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px; }
+    .chip {
+      display: inline-block;
+      border: 1px solid rgba(255,255,255,0.10);
+      background: rgba(255,255,255,0.065);
+      color: var(--text-soft);
+      border-radius: 999px;
+      padding: 8px 11px;
+      font-size: 12px;
+      font-weight: 800;
     }
 
     .panel {
-      padding: 0 20px;
-      background: rgba(0, 0, 0, 0.15);
-      max-height: 0;
-      overflow: hidden;
-      transition: max-height 0.4s ease-out;
-      border-radius: 0 0 16px 16px;
-      font-size: 14px;
+      margin-top: 22px;
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      background: rgba(255, 255, 255, 0.025);
+      padding: 18px;
+      color: var(--text-soft);
       line-height: 1.7;
-      color: #e2e8f0;
+      font-size: 13px;
     }
 
-    .panel-inner { padding: 25px 0; }
-    .panel-inner h3 { color: var(--green-palette); font-weight: 800; margin-top: 0; }
-    .panel-inner p { margin: 0 0 12px; }
-
-    .fair-use-table {
+    table {
       width: 100%;
       border-collapse: collapse;
-      margin: 15px 0;
+      margin-top: 12px;
       font-size: 12px;
-      color: #fff;
     }
+    th, td { border: 1px solid var(--border); padding: 8px; text-align: left; }
+    th { background: var(--ottanio); color: #fff; }
 
-    .fair-use-table td, .fair-use-table th {
-      border: 1px solid var(--border);
-      padding: 8px;
-      text-align: left;
-      vertical-align: top;
-    }
-
-    .fair-use-table th { background: var(--ottanio-palette); color: #fff; }
-
-    .premium-card {
-      background: rgba(255,255,255,0.03);
-      border: 1px solid rgba(255,255,255,0.08);
-      border-radius: 16px;
-      padding: 16px;
-    }
-
-    .owner-card {
-      margin-top: 16px;
-      background: rgba(212, 175, 55, 0.08);
-      border: 1px solid rgba(212, 175, 55, 0.28);
-      border-radius: 16px;
-      padding: 16px;
-      text-align: left;
-      display: none;
-    }
-
-    .owner-card h3 {
-      margin: 0 0 10px;
-      color: var(--gold-palette);
-      font-size: 16px;
-    }
-
-    .alert {
-      padding: 8px 10px;
-      border-radius: 10px;
-      font-weight: 800;
-      font-size: 12px;
-      display: inline-block;
-    }
-
-    .alert.safe {
-      background: rgba(84, 196, 166, 0.15);
-      color: var(--green-palette);
-      border: 1px solid rgba(84, 196, 166, 0.4);
-    }
-
-    .alert.danger {
-      background: rgba(219, 79, 97, 0.15);
-      color: #ffb3bd;
-      border: 1px solid rgba(219, 79, 97, 0.4);
-    }
-
-    strong, b { color: var(--green-palette); font-weight: 800; }
+    .warning { color: #ffd58a; }
+    .ok { color: var(--green); }
+    .bad { color: #ffb3bd; }
 
     @media (max-width: 860px) {
-      .results-col {
-        border-left: none;
-        border-top: 1px solid var(--border);
-        padding-left: 0;
-        padding-top: 20px;
-      }
-    }
-
-    @media (max-width: 640px) {
-      body { padding: 6px; }
-      .glass-container { padding: 16px; }
-      .mini-grid { grid-template-columns: 1fr; }
-      .brand-logo { max-width: 180px; }
-      .price-line { font-size: 12px; }
-      .total-price { font-size: 28px; }
+      body { padding: 8px; }
+      .wrap { padding: 16px; }
+      .grid, .mini-grid { grid-template-columns: 1fr; }
+      .total { text-align: left; }
     }
   </style>
 </head>
 <body>
-<div class="glass-container">
-  <div class="brand-header">
-    <img src="logo_correct.png" alt="2EMME Apartments" class="brand-logo">
-    <div id="google_translate_element"></div>
-    <p class="hero-subtitle">
-      Interfaccia aggiornata con logiche 2026: modelli <strong>Guaranteed</strong> e <strong>Flex Stay</strong>,
-      sconti progressivi, benefit dinamici, penale di recesso <strong>fissa, limitata e prevedibile</strong>,
-      Fair Use / Overuse, separazione chiara tra penale, danni e consumi e quadro informativo completo su costi,
-      pulizie, regole della casa e condizioni contrattuali.
-    </p>
-  </div>
+  <main class="wrap">
+    <header>
+      <img src="logo_correct.png" alt="2EMME Apartments" class="logo">
+      <h1>Simulatore Pricing 2026 - V2</h1>
+      <p class="subtitle">
+        Versione corretta per test operativo: tassa soggiorno multi-ospite, sconti tiered più prudenti,
+        date locali e cap mensile applicato solo ai soggiorni 30+ in modello Guaranteed.
+      </p>
+    </header>
 
-  <div id="adr-lock" style="margin-top:8px; display:flex; justify-content:center; gap:10px; align-items:center;">
-    <button id="lock-btn" title="Modifica ADR / Dashboard Proprietario" style="background:transparent;border:1px solid rgba(255,255,255,0.06); color:#fff; padding:6px 10px; border-radius:8px; cursor:pointer; display:flex; align-items:center; gap:8px;">
-      <span id="lock-label" style="font-weight:700; color:#fff;">Modifica ADR / Dashboard</span>
-    </button>
-    <div id="adr-editor" style="display:none; gap:8px; align-items:center;">
-      <input id="adr-password" type="password" placeholder="Password" style="padding:6px 8px; border-radius:6px; border:1px solid rgba(255,255,255,0.06); background:transparent; color:#fff; width:110px;" />
-      <input id="adr-input" type="number" min="0" step="0.01" placeholder="ADR" style="padding:6px 8px; border-radius:6px; border:1px solid rgba(255,255,255,0.06); background:transparent; color:#fff; width:100px; display:none;" />
-      <button id="adr-unlock" style="padding:6px 10px; border-radius:6px; border:1px solid rgba(255,255,255,0.06); background:transparent; color:#fff; cursor:pointer; display:inline-block;">Sblocca</button>
-      <button id="adr-save" style="padding:6px 10px; border-radius:6px; border:1px solid rgba(255,255,255,0.06); background:var(--green-palette); color:#000; cursor:pointer; display:none;">Salva ADR</button>
-      <button id="adr-cancel" style="padding:6px 10px; border-radius:6px; border:1px solid rgba(255,255,255,0.06); background:transparent; color:#fff; cursor:pointer; display:none;">Annulla</button>
+    <div class="notice">
+      <strong>Nota:</strong> questa pagina non sostituisce ancora <code>index.html</code>. Serve per validare la nuova curva pricing prima del merge definitivo.
     </div>
-  </div>
 
-  <div class="policy-grid">
-    <div class="policy-card" id="standard">
-      <div class="card-header">STANDARD STAY (1-13 NT)</div>
-      <div class="card-info">
-        Modello: <b>Plug &amp; Play</b><br>
-        Tariffa: <b>ADR piena</b><br>
-        Utenze: <b>Incluse + surcharge</b><br>
-        Pulizia: <b>45,00€ finale</b><br>
-        Garanzie: <b>Blocco carta o polizza</b>
-      </div>
-    </div>
-    <div class="policy-card" id="long">
-      <div class="card-header">LONG STAY (14-29 NT)</div>
-      <div class="card-info">
-        Pricing: <b>Tiered ADR su giorni 14-29</b><br>
-        Benefit: <b>Soft Pack IT</b><br>
-        Utenze: <b>Incluse + surcharge</b><br>
-        Pulizie: <b>45€ finale + 40€/14gg + audit</b><br>
-        Tassa: <b>Prime 14 notti</b>
-      </div>
-    </div>
-    <div class="policy-card" id="extra">
-      <div class="card-header">EXTRA LONG (30-60 NT)</div>
-      <div class="card-info">
-        Pricing: <b>Tiered + piano pagamento</b><br>
-        Benefit: <b>Soft + Spirit Pack IT</b><br>
-        Utenze: <b>Forfait + Fair Use</b><br>
-        Parcheggio: <b>Agevolazione selettiva</b><br>
-        Garanzie: <b>Polizza + deposito + penale</b>
-      </div>
-    </div>
-    <div class="policy-card" id="smart">
-      <div class="card-header">SMART RESIDENT (61-90 NT)</div>
-      <div class="card-info">
-        Pricing: <b>Tiered premium</b><br>
-        Benefit: <b>Pacchetto premium + priorità</b><br>
-        Utenze: <b>Forfait + Fair Use</b><br>
-        Parcheggio: <b>Possibile omaggio</b><br>
-        Pulizie: <b>Mese 2 scontato, Mese 3 omaggiabile</b>
-      </div>
-    </div>
-    <div class="policy-card" id="flex">
-      <div class="card-header">FLEX STAY (RINNOVO)</div>
-      <div class="card-info">
-        Modello: <b>Nessun blocco lungo</b><br>
-        Tariffa: <b>ADR piena</b><br>
-        Recesso: <b>Nessuna penale a fine periodo pagato</b><br>
-        Disponibilità: <b>Non garantita oltre il periodo saldato</b><br>
-        Garanzie: <b>Standard</b>
-      </div>
-    </div>
-  </div>
+    <section class="grid">
+      <div class="card">
+        <h2>Parametri soggiorno</h2>
 
-  <div class="simulator-section">
-    <div class="controls-col">
-      <label class="input-label">Check-in</label>
-      <input type="date" id="checkin-date" class="dropdown" onchange="syncDates()">
-
-      <label class="input-label">Check-out</label>
-      <input type="date" id="checkout-date" class="dropdown" onchange="syncDates()">
-
-      <label class="input-label">Notti di soggiorno: <span class="days-value" id="days-display">0</span></label>
-      <input type="range" id="days-slider" min="1" max="120" value="1" oninput="syncSlider()">
-
-      <label class="input-label" style="margin-top:20px;">Lingua Ospite</label>
-      <select class="dropdown" id="lang-select" onchange="changeLanguage()">
-        <option value="it">Italiano</option>
-        <option value="en">English</option>
-        <option value="fr">Français</option>
-        <option value="es">Español</option>
-        <option value="de">Deutsch</option>
-      </select>
-
-      <label class="input-label">Alloggio</label>
-      <select id="property-select" class="dropdown" onchange="calculate()">
-        <option value="suite">NoLo Suite</option>
-        <option value="nest">NoLo Nest</option>
-        <option value="studio">NoLo Studio</option>
-        <option value="heritage">NoLo Heritage</option>
-      </select>
-
-      <label class="input-label">Modello contratto</label>
-      <select id="contract-mode" class="dropdown" onchange="calculate()">
-        <option value="guaranteed">Guaranteed</option>
-        <option value="flex">Flex Stay</option>
-      </select>
-
-      <label class="input-label">Modalità pagamento</label>
-      <select id="pay-mode" class="dropdown" onchange="calculate()">
-        <option value="weekly">Settimanale</option>
-        <option value="monthly">Mensile anticipato</option>
-        <option value="full">Totale anticipato</option>
-      </select>
-
-      <label class="checkbox-label">
-        <input type="checkbox" id="parking-checkbox" onchange="calculate()" style="accent-color: var(--green-palette);">
-        Richiedi posto auto / benefit mobilità
-      </label>
-
-      <div class="mini-grid">
-        <div>
-          <label class="input-label">ADR base alloggio (€)</label>
-          <input class="money-input" id="adr-readonly" type="number" value="0" readonly>
+        <div class="mini-grid">
+          <div>
+            <label for="checkin-date">Check-in</label>
+            <input type="date" id="checkin-date">
+          </div>
+          <div>
+            <label for="checkout-date">Check-out</label>
+            <input type="date" id="checkout-date">
+          </div>
         </div>
-        <div>
-          <label class="input-label">Contesto tariffario</label>
-          <input class="money-input" id="adr-context" type="text" value="Stagione automatica" readonly>
+
+        <label for="days-slider">Notti: <strong id="days-display">1</strong></label>
+        <input type="range" id="days-slider" min="1" max="120" value="1">
+
+        <div class="mini-grid">
+          <div>
+            <label for="guest-count">Numero ospiti</label>
+            <input type="number" id="guest-count" min="1" max="8" step="1" value="1">
+          </div>
+          <div>
+            <label for="property-select">Alloggio</label>
+            <select id="property-select">
+              <option value="suite">NoLo Suite</option>
+              <option value="nest">NoLo Nest</option>
+              <option value="studio">NoLo Studio</option>
+              <option value="heritage">NoLo Heritage</option>
+            </select>
+          </div>
         </div>
-        <div>
-          <label class="input-label">Overuse reale stimato (€)</label>
-          <input class="money-input" id="real-overuse" type="number" min="0" step="0.01" value="0" oninput="calculate()">
+
+        <div class="mini-grid">
+          <div>
+            <label for="contract-mode">Modello contratto</label>
+            <select id="contract-mode">
+              <option value="guaranteed">Guaranteed</option>
+              <option value="flex">Flex Stay</option>
+            </select>
+          </div>
+          <div>
+            <label for="pay-mode">Modalità pagamento</label>
+            <select id="pay-mode">
+              <option value="weekly">Settimanale</option>
+              <option value="monthly">Mensile anticipato</option>
+              <option value="full">Totale anticipato</option>
+            </select>
+          </div>
         </div>
-        <div>
-          <label class="input-label">Danni residuali stimati (€)</label>
-          <input class="money-input" id="real-damage" type="number" min="0" step="0.01" value="0" oninput="calculate()">
+
+        <div class="check-row">
+          <input type="checkbox" id="parking-checkbox">
+          <span>Richiedi posto auto / benefit mobilità</span>
+        </div>
+
+        <div class="mini-grid">
+          <div>
+            <label for="adr-readonly">ADR base alloggio (€)</label>
+            <input id="adr-readonly" type="number" readonly>
+          </div>
+          <div>
+            <label for="adr-context">Contesto tariffario</label>
+            <input id="adr-context" type="text" readonly>
+          </div>
+        </div>
+
+        <div class="mini-grid">
+          <div>
+            <label for="real-overuse">Overuse reale stimato (€)</label>
+            <input id="real-overuse" type="number" min="0" step="0.01" value="0">
+          </div>
+          <div>
+            <label for="real-damage">Danni residuali stimati (€)</label>
+            <input id="real-damage" type="number" min="0" step="0.01" value="0">
+          </div>
         </div>
       </div>
-    </div>
 
-    <div class="results-col">
-      <div class="price-breakdown">
-        <div class="price-line"><span>Soggiorno lordo (<span id="res-days">0</span> nt)</span><span class="value">€ <span id="stay-gross">0.00</span></span></div>
-        <div class="price-line"><span>Sconto tiered ADR</span><span class="value" style="color:var(--green-palette);">- € <span id="tiered-discount">0.00</span></span></div>
-        <div class="price-line"><span>Sconto modalità pagamento</span><span class="value" style="color:var(--green-palette);">- € <span id="payment-discount">0.00</span></span></div>
-        <div class="price-line"><span>Canone netto soggiorno</span><span class="value">€ <span id="stay-net">0.00</span></span></div>
-        <div class="price-line"><span>Utenze / surcharge / forfait</span><span class="value">€ <span id="util-cost">0.00</span></span></div>
-        <div class="price-line"><span>Imposta registro / bolli</span><span class="value">€ <span id="reg-cost">0.00</span></span></div>
-        <div class="price-line"><span>Pulizie intermedie programmate</span><span class="value">€ <span id="cleaning-cost">0.00</span></span></div>
-        <div class="price-line"><span>Audit tecnico (-10gg)</span><span class="value">€ <span id="audit-cost">0.00</span></span></div>
-        <div class="price-line"><span>Pulizia finale ripristino</span><span class="value">€ <span id="final-clean-cost">0.00</span></span></div>
-        <div class="price-line"><span>Quota parcheggio / mobilità</span><span class="value">€ <span id="parking-cost">0.00</span></span></div>
-        <div class="price-line"><span>Tassa soggiorno + servizio</span><span class="value">€ <span id="tax-cost">0.00</span></span></div>
-      </div>
-
-      <div id="active-benefits" class="benefit-badge"></div>
-
-      <div class="total-price">€ <span id="final-total">0.00</span></div>
-      <div class="summary-chip" id="model-summary">Guaranteed / Calendario bloccato</div>
-      <div class="summary-chip" id="adr-summary" style="margin-left:8px;">ADR media netta: € 0.00</div>
-      <div class="summary-chip" id="property-summary" style="margin-left:8px;">Alloggio: -</div>
-
-      <div class="premium-card" style="margin-top:16px; text-align:left;">
-        <h3 style="margin-bottom:10px;">Tutela economica stimata</h3>
-        <div class="price-breakdown">
-          <div class="price-line"><span>Penale massima teorica</span><span class="value">€ <span id="guarantee-discount">0.00</span></span></div>
-          <div class="price-line"><span>Consumi / overuse stimati</span><span class="value">€ <span id="guarantee-energy">0.00</span></span></div>
-          <div class="price-line"><span>Danni residuali stimati</span><span class="value">€ <span id="guarantee-damage">0.00</span></span></div>
-          <div class="price-line"><span>Totale tutela economica</span><span class="value">€ <span id="guarantee-total">0.00</span></span></div>
+      <div class="card">
+        <h2>Riepilogo economico</h2>
+        <div class="breakdown">
+          <div class="line"><span>Soggiorno lordo (<span id="res-days">1</span> nt)</span><span class="value">€ <span id="stay-gross">0.00</span></span></div>
+          <div class="line discount"><span>Sconto tiered ADR prudente</span><span class="value">- € <span id="tiered-discount">0.00</span></span></div>
+          <div class="line discount"><span>Sconto pagamento</span><span class="value">- € <span id="payment-discount">0.00</span></span></div>
+          <div class="line"><span>Canone netto soggiorno</span><span class="value">€ <span id="stay-net">0.00</span></span></div>
+          <div class="line"><span>Utenze / surcharge / forfait</span><span class="value">€ <span id="util-cost">0.00</span></span></div>
+          <div class="line"><span>Imposta registro / bolli</span><span class="value">€ <span id="reg-cost">0.00</span></span></div>
+          <div class="line"><span>Pulizie intermedie</span><span class="value">€ <span id="cleaning-cost">0.00</span></span></div>
+          <div class="line"><span>Audit tecnico</span><span class="value">€ <span id="audit-cost">0.00</span></span></div>
+          <div class="line"><span>Pulizia finale</span><span class="value">€ <span id="final-clean-cost">0.00</span></span></div>
+          <div class="line"><span>Parcheggio / mobilità</span><span class="value">€ <span id="parking-cost">0.00</span></span></div>
+          <div class="line"><span>Tassa soggiorno (<span id="tax-guests">1</span> osp.) + servizio</span><span class="value">€ <span id="tax-cost">0.00</span></span></div>
         </div>
-        <div class="sim-note" id="guarantee-note"></div>
-      </div>
 
-      <div class="owner-card" id="owner-dashboard">
-        <h3>Dashboard Proprietario</h3>
-        <div class="price-breakdown">
-          <div class="price-line"><span>Price cap mensile proporzionale</span><span class="value">€ <span id="owner-month-cap">0.00</span></span></div>
-          <div class="price-line"><span>Netto giornaliero prima imposta</span><span class="value">€ <span id="owner-daily-net-before-tax">0.00</span></span></div>
-          <div class="price-line"><span>Imposta forfettaria stimata</span><span class="value">€ <span id="owner-tax-flat">0.00</span></span></div>
-          <div class="price-line"><span>Netto giornaliero dopo imposta</span><span class="value">€ <span id="owner-daily-net-after-tax">0.00</span></span></div>
-          <div class="price-line"><span>Floor prudente 60% occupancy</span><span class="value">€ <span id="owner-floor60">0.00</span></span></div>
-          <div class="price-line"><span>Margine netto forfettario stimato</span><span class="value">€ <span id="owner-margin-net">0.00</span></span></div>
+        <div class="total">€ <span id="final-total">0.00</span></div>
+        <div class="chips">
+          <span class="chip" id="model-summary">Guaranteed</span>
+          <span class="chip" id="adr-summary">ADR netta: € 0.00</span>
+          <span class="chip" id="property-summary">Alloggio: -</span>
         </div>
-        <div class="sim-note" id="owner-note"></div>
-        <div style="margin-top:10px;" id="sustainability-alert"></div>
       </div>
-    </div>
-  </div>
+    </section>
 
-  <div class="simulator-section" style="margin-top:-8px;">
-    <div class="controls-col">
-      <h3 style="margin-top:0; color: var(--green-palette);">Planner operativo soggiorno</h3>
-      <div class="price-breakdown" id="schedule-overview">
-        <div class="price-line"><span>Data check-in</span><span class="value" id="plan-checkin">-</span></div>
-        <div class="price-line"><span>Data check-out</span><span class="value" id="plan-checkout">-</span></div>
-        <div class="price-line"><span>Audit tecnico (-10gg)</span><span class="value" id="plan-audit-date">-</span></div>
-        <div class="price-line"><span>Preavviso minimo recesso</span><span class="value" id="plan-notice-date">-</span></div>
-        <div class="price-line"><span>50% soggiorno</span><span class="value" id="plan-half-date">-</span></div>
-        <div class="price-line"><span>83% soggiorno</span><span class="value" id="plan-eighty3-date">-</span></div>
+    <section class="grid" style="margin-top:22px;">
+      <div class="card">
+        <h2>Planner operativo</h2>
+        <div class="breakdown">
+          <div class="line"><span>Check-in</span><span class="value" id="plan-checkin">-</span></div>
+          <div class="line"><span>Check-out</span><span class="value" id="plan-checkout">-</span></div>
+          <div class="line"><span>Audit tecnico (-10gg)</span><span class="value" id="plan-audit-date">-</span></div>
+          <div class="line"><span>Preavviso minimo recesso</span><span class="value" id="plan-notice-date">-</span></div>
+          <div class="line"><span>50% soggiorno</span><span class="value" id="plan-half-date">-</span></div>
+          <div class="line"><span>83% soggiorno</span><span class="value" id="plan-eighty3-date">-</span></div>
+        </div>
+        <div class="panel" id="recesso-summary"></div>
       </div>
-      <div class="sim-note" id="recesso-summary"></div>
-    </div>
 
-    <div class="results-col" style="text-align:left;">
-      <h3 style="margin-top:0; color: var(--green-palette);">Calendario pulizie, benefit e penale</h3>
-      <div class="price-breakdown" id="cleaning-schedule"></div>
-      <div class="sim-note" id="benefit-timeline" style="margin-top:12px;"></div>
-      <div class="sim-note" id="penalty-timeline" style="margin-top:12px;"></div>
-    </div>
-  </div>
+      <div class="card">
+        <h2>Dashboard controllo pricing</h2>
+        <div class="breakdown">
+          <div class="line"><span>Cap mensile proporzionale</span><span class="value">€ <span id="owner-month-cap">0.00</span></span></div>
+          <div class="line"><span>Netto giornaliero prima imposta</span><span class="value">€ <span id="owner-daily-net-before-tax">0.00</span></span></div>
+          <div class="line"><span>Imposta forfettaria stimata 6%</span><span class="value">€ <span id="owner-tax-flat">0.00</span></span></div>
+          <div class="line"><span>Netto giornaliero dopo imposta</span><span class="value">€ <span id="owner-daily-net-after-tax">0.00</span></span></div>
+          <div class="line"><span>Floor prudente 60% occupancy</span><span class="value">€ <span id="owner-floor60">0.00</span></span></div>
+          <div class="line"><span>Margine netto stimato</span><span class="value">€ <span id="owner-margin-net">0.00</span></span></div>
+        </div>
+        <div class="panel" id="sustainability-alert"></div>
+      </div>
+    </section>
 
-  <button class="accordion">1. PANORAMICA COSTI, PAGAMENTI E GARANZIE <span>▼</span></button>
-  <div class="panel"><div class="panel-inner">
-    <p><strong>Tassa di soggiorno (Milano):</strong> indicata in simulazione per le prime 14 notti.</p>
-    <p><strong>Costo di servizio:</strong> €15,00 per soggiorno.</p>
-    <p><strong>Modello Guaranteed:</strong> blocco calendario, condizioni agevolate e maggiore prevedibilità economica.</p>
-    <p><strong>Modello Flex Stay:</strong> nessuno sconto durata e nessuna penale di uscita a fine periodo pagato.</p>
-  </div></div>
+    <section class="panel">
+      <h2>Regole V2 applicate</h2>
+      <table>
+        <thead><tr><th>Elemento</th><th>Regola V2</th></tr></thead>
+        <tbody>
+          <tr><td>Tassa soggiorno</td><td>€9,50 × numero ospiti × massimo 14 notti</td></tr>
+          <tr><td>Sconto tier 14-29</td><td>8% × discountPower, cap massimo 10%</td></tr>
+          <tr><td>Sconto tier 30-60</td><td>18% × discountPower, cap massimo 22%</td></tr>
+          <tr><td>Sconto tier 61+</td><td>25% × discountPower, cap massimo 30%</td></tr>
+          <tr><td>Cap mensile</td><td>Applicato solo a Guaranteed 30+ notti</td></tr>
+          <tr><td>Flex Stay</td><td>ADR piena, nessuno sconto tiered o pagamento</td></tr>
+        </tbody>
+      </table>
+    </section>
+  </main>
 
-  <button class="accordion">2. RECESSO ANTICIPATO, PENALI E RESTITUZIONE PROGRESSIVA <span>▼</span></button>
-  <div class="panel"><div class="panel-inner">
-    <table class="fair-use-table">
-      <thead><tr><th>Durata soggiorno</th><th>Penale massima</th></tr></thead>
-      <tbody>
-        <tr><td>30–44 notti</td><td>€250</td></tr>
-        <tr><td>45–60 notti</td><td>€350</td></tr>
-        <tr><td>61+ notti</td><td>€500</td></tr>
-      </tbody>
-    </table>
-  </div></div>
-
-  <button class="accordion">3. SERVIZI DI PULIZIA, AUDIT E BACK-SCHEDULING <span>▼</span></button>
-  <div class="panel"><div class="panel-inner">
-    <p><strong>Audit tecnico:</strong> a 10 giorni dal check-out.</p>
-    <p><strong>Pulizie intermedie:</strong> ogni 14 giorni, con logica 40€ / 20€ / omaggio.</p>
-    <p><strong>Pulizia finale:</strong> €45 breve, €80 long stay.</p>
-  </div></div>
-
-  <button class="accordion">4. FAIR USE, OVERUSE E MILANO GREEN DEAL <span>▼</span></button>
-  <div class="panel"><div class="panel-inner">
-    <p><strong>Visione:</strong> la struttura promuove un uso responsabile delle risorse in coerenza con obiettivi di sostenibilità urbana e contenimento dei consumi.</p>
-    <p><strong>Soggiorni inferiori a 30 notti:</strong> utenze incluse con surcharge stagionale indicativa, senza franchigia giornaliera formalizzata.</p>
-    <p><strong>Soggiorni pari o superiori a 30 notti:</strong> applicazione di forfait utenze e policy Fair Use, con eventuale addebito di eccedenze a consuntivo.</p>
-
-    <h3>TABELLA 1: SOGLIE FAIR USE - ESTATE</h3>
-    <table class="fair-use-table">
-      <thead><tr><th>Alloggio</th><th>Soglia giornaliera</th><th>Soglia mensile indicativa</th></tr></thead>
-      <tbody>
-        <tr><td>THE NOLO NEST / SUITE</td><td>8 kWh</td><td>240 kWh</td></tr>
-        <tr><td>THE NOLO STUDIO</td><td>6 kWh</td><td>180 kWh</td></tr>
-        <tr><td>THE NOLO HERITAGE</td><td>3 kWh</td><td>90 kWh</td></tr>
-      </tbody>
-    </table>
-
-    <h3>TABELLA 2: SOGLIE FAIR USE - INVERNO</h3>
-    <table class="fair-use-table">
-      <thead><tr><th>Alloggio</th><th>Riscaldamento</th><th>Elettricità</th></tr></thead>
-      <tbody>
-        <tr><td>THE NOLO NEST</td><td>25 scatti/gg (750/mese)</td><td>6 kWh/gg</td></tr>
-        <tr><td>THE NOLO SUITE</td><td>20 scatti/gg (600/mese)</td><td>6 kWh/gg</td></tr>
-        <tr><td>THE NOLO STUDIO</td><td>14 scatti/gg (420/mese)</td><td>5 kWh/gg</td></tr>
-        <tr><td>THE NOLO HERITAGE</td><td>4 Smc/gg (120/mese)</td><td>3 kWh/gg</td></tr>
-      </tbody>
-    </table>
-
-    <h3>Listino Overuse</h3>
-    <p><strong>Elettricità Extra:</strong> 0,80 € / kWh</p>
-    <p><strong>Riscaldamento Centralizzato Extra:</strong> 0,35 € / scatto</p>
-    <p><strong>Riscaldamento Autonomo Gas Extra:</strong> 1,50 € / Smc</p>
-  </div></div>
-
-  <button class="accordion">5. REGOLE DELLA CASA, ACCESSI E CONVIVENZA <span>▼</span></button>
-  <div class="panel"><div class="panel-inner">
-    <p><strong>Ospiti registrati:</strong> possono soggiornare solo le persone regolarmente registrate.</p>
-    <p><strong>Divieto di fumo:</strong> penale base €200 + eventuali costi di sanificazione e deodorizzazione.</p>
-    <p><strong>Animali:</strong> non ammessi salvo preventiva autorizzazione scritta.</p>
-    <p><strong>Quiete:</strong> rispetto della vita condominiale e del riposo dei vicini. Fasce di silenzio raccomandate: 23:00 – 08:00.</p>
-    <p><strong>WC Sanitrit:</strong> ove presente, è vietato gettare materiali diversi dalla carta igienica. Eventuali danni da uso improprio sono integralmente addebitati.</p>
-    <p><strong>Raccolta differenziata:</strong> obbligatoria secondo le regole comunali e le istruzioni dell'alloggio.</p>
-    <p><strong>Accessi del Gestore:</strong> possibili con congruo preavviso per verifiche, manutenzione o interventi programmati, salvo casi urgenti o emergenze documentabili.</p>
-  </div></div>
-
-  <button class="accordion">6. BENEFIT, SCONTI E SERVIZI ACCESSORI <span>▼</span></button>
-  <div class="panel"><div class="panel-inner">
-    <p><strong>Soft Pack IT:</strong> benefit base per soggiorni medio-lunghi.</p>
-    <p><strong>Spirit Pack IT:</strong> benefit aggiuntivo per soggiorni 30+ o modelli premium.</p>
-    <p><strong>Mobilità / Parcheggio:</strong> può assumere forma di quota ridotta, agevolazione o omaggio, in funzione del modello, della durata e della promozione applicata.</p>
-    <p><strong>Principio generale:</strong> i benefit sono legati al modello di soggiorno scelto e alle condizioni del preventivo; in caso di recesso anticipato, decadono per la parte non maturata.</p>
-  </div></div>
-
-  <button class="accordion">7. ALLEGATO A – INFORMATIVA PRIVACY &amp; GDPR (14 PUNTI) <span>▼</span></button>
-  <div class="panel"><div class="panel-inner">
-    <p><strong>1. Titolare:</strong><br>2EMME RE&amp;CONSULTING di Matteo Masella, Via Pietro Colletta 70, Milano.</p>
-    <p><strong>2. DPO:</strong><br>Non nominato. Contatti: matteo.masella@duemmeconsulting.it.</p>
-    <p><strong>3. Finalità:</strong><br>esecuzione contratto, adempimenti di pubblica sicurezza, obblighi fiscali, tutela dell'immobile e gestione danni / consumi.</p>
-    <p><strong>4. Basi giuridiche:</strong><br>contratto, obbligo legale e legittimo interesse nei limiti applicabili.</p>
-    <p><strong>5. Dati trattati:</strong><br>identificativi, documenti, contatti, dati di pagamento e dati tecnici collegati ai consumi / gestione soggiorno.</p>
-    <p><strong>6. Modalità:</strong><br>strumenti digitali e cartacei, accessi controllati, connessioni cifrate.</p>
-    <p><strong>7. Destinatari:</strong><br>autorità competenti, consulenti, fornitori tecnici, provider di check-in e gestione prenotazione.</p>
-    <p><strong>8. Trasferimenti:</strong><br>solo ove consentiti e con adeguate garanzie.</p>
-    <p><strong>9. Conservazione:</strong><br>secondo i termini previsti dalla normativa applicabile e dalle finalità del trattamento.</p>
-    <p><strong>10. Diritti:</strong><br>accesso, rettifica, cancellazione, limitazione, opposizione e reclamo al Garante.</p>
-    <p><strong>11-14. Sicurezza e note:</strong><br>misure tecniche e organizzative adeguate, gestione delle richieste e canali di contatto dedicati.</p>
-  </div></div>
-
-  <button class="accordion">CONTRATTO DI OSPITALITÀ (CAV) – TESTO SINTETICO AGGIORNATO <span>▼</span></button>
-  <div class="panel"><div class="panel-inner">
-    <h3>Premessa</h3>
-    <p>Il presente quadro contrattuale regola il rapporto tra Gestore e Ospite per soggiorni in struttura ricettiva extralberghiera CAV. Il documento informativo, il riepilogo economico e gli allegati costituiscono parte integrante dell'accordo.</p>
-
-    <p><strong>ART. 1 – Oggetto</strong><br>L'unità immobiliare è concessa per finalità di soggiorno temporaneo secondo il modello selezionato in fase di prenotazione: Guaranteed oppure Flex Stay.</p>
-
-    <p><strong>ART. 2 – Corrispettivo e servizi</strong><br>Il prezzo del soggiorno deriva dal preventivo confermato, tenendo conto di durata, modello scelto, modalità di pagamento, benefit, costi di servizio, pulizie, utenze e condizioni energetiche applicabili.</p>
-
-    <p><strong>ART. 3 – Pagamenti</strong><br>Per soggiorni brevi è normalmente richiesto il saldo anticipato. Per soggiorni 30+ il piano economico può essere ricorrente, mensile anticipato o totale anticipato secondo il riepilogo economico.</p>
-
-    <p><strong>ART. 4 – Garanzie</strong><br>Per soggiorni 30+ si applicano: polizza danni obbligatoria, eventuale deposito cauzionale di riferimento e una penale di recesso dedicata, fissa e limitata, sempre distinta da danni residuali, overuse e servizi già erogati.</p>
-
-    <p><strong>ART. 5 – Recesso anticipato</strong><br>Nel modello Guaranteed, il recesso è sempre possibile. In assenza di preavviso, o con preavviso inferiore a 10 giorni, può applicarsi fino al 100% della penale massima prevista per la fascia di durata prenotata. Con preavviso minimo di 10 giorni, la penale si riduce in base alla percentuale di soggiorno completata: 100% sotto il 50%, 50% tra il 50% e l'83%, solo €75 oltre l'83% quale costo amministrativo di uscita.</p>
-
-    <p>Nel modello Flex Stay non si applicano penali di uscita alla fine del periodo già saldato, ma non vi è garanzia di disponibilità per periodi successivi non ancora coperti finanziariamente.</p>
-
-    <p><strong>ART. 6 – Fair Use e Overuse</strong><br>Per i soggiorni lunghi si applicano soglie di utilizzo ragionevole delle risorse e, in caso di superamento, addebiti a consuntivo secondo il listino indicato nella documentazione.</p>
-
-    <p><strong>ART. 7 – Regole della casa</strong><br>Divieto di fumo, rispetto della quiete, accessi solo per ospiti registrati, corretta raccolta differenziata, divieto di uso improprio degli impianti e rispetto delle procedure di check-in e check-out.</p>
-
-    <p><strong>ART. 8 – Privacy</strong><br>I dati personali sono trattati secondo l'informativa privacy allegata e la normativa applicabile.</p>
-
-    <p><strong>ART. 9 – Legge applicabile e competenza</strong><br>Il rapporto è regolato dalla legge italiana. Per gli ospiti qualificabili come consumatori resta ferma la disciplina del foro eventualmente applicabile secondo normativa vigente.</p>
-
-    <h3>Approvazione specifica</h3>
-    <p>L'Ospite approva specificamente le clausole relative a pagamenti, garanzie, recesso, politica energetica, addebiti overuse, pulizie programmate, regole della casa e allegati informativi.</p>
-  </div></div>
-
-</div>
-
-<script type="text/javascript">
-  function googleTranslateElementInit() {
-    new google.translate.TranslateElement({ pageLanguage: 'it' }, 'google_translate_element');
-  }
-</script>
-<script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
-
-<script>
-  (function () {
-    const PASSWORD = '3671';
+  <script>
     const DEFAULT_ADR_MAP = {
       suite: 95,
       nest: 85,
@@ -688,567 +357,330 @@
       heritage: 80
     };
 
-    let ownerUnlocked = false;
+    const PROPERTY_CONFIGS = {
+      suite: { name: 'The NoLo Suite (Bilocale)', prestigeIndex: 1.05, discountPower: 1.15, parkingShortDaily: 12, floor60: 11.94, monthlyCap: 2750 },
+      nest: { name: 'The NoLo Nest (Mono + Cucina Sep.)', prestigeIndex: 0.95, discountPower: 1.00, parkingShortDaily: 12, floor60: 9.40, monthlyCap: 2250 },
+      studio: { name: 'The NoLo Studio (Luxury 6° Piano)', prestigeIndex: 1.15, discountPower: 0.95, parkingShortDaily: 10, floor60: 8.25, monthlyCap: 2250 },
+      heritage: { name: 'The NoLo Heritage (Top Location)', prestigeIndex: 1.45, discountPower: 0.70, parkingShortDaily: 10, floor60: 9.98, monthlyCap: 2600 }
+    };
 
-    function loadAdrMap() {
+    function getPropertyConfig(property) {
+      return PROPERTY_CONFIGS[property] || PROPERTY_CONFIGS.suite;
+    }
+
+    function getCurrentADR(propertyKey) {
       try {
         const saved = JSON.parse(localStorage.getItem('2emme_adr_map') || '{}');
-        return { ...DEFAULT_ADR_MAP, ...saved };
+        const merged = { ...DEFAULT_ADR_MAP, ...saved };
+        return Number(merged[propertyKey] ?? DEFAULT_ADR_MAP[propertyKey] ?? 80);
       } catch (err) {
-        return { ...DEFAULT_ADR_MAP };
+        return Number(DEFAULT_ADR_MAP[propertyKey] ?? 80);
       }
     }
 
-    window.ADR_MAP = loadAdrMap();
-
-    window.getCurrentADR = function (propertyKey) {
-      return window.ADR_MAP[propertyKey] !== undefined ? Number(window.ADR_MAP[propertyKey]) : 80;
-    };
-
-    window.setCurrentADR = function (propertyKey, value) {
-      window.ADR_MAP[propertyKey] = Number(value);
-      localStorage.setItem('2emme_adr_map', JSON.stringify(window.ADR_MAP));
-    };
-
-    const lockBtn = document.getElementById('lock-btn');
-    const adrEditor = document.getElementById('adr-editor');
-    const pwdInput = document.getElementById('adr-password');
-    const adrInput = document.getElementById('adr-input');
-    const unlockBtn = document.getElementById('adr-unlock');
-    const saveBtn = document.getElementById('adr-save');
-    const cancelBtn = document.getElementById('adr-cancel');
-    const lockLabel = document.getElementById('lock-label');
-    const ownerDashboard = document.getElementById('owner-dashboard');
-
-    function getSelectedProperty() {
-      return (document.getElementById('property-select') || {}).value || 'suite';
+    function euro(num) {
+      return '€ ' + Number(num || 0).toFixed(2);
     }
 
-    if (lockBtn && adrEditor && pwdInput && adrInput && unlockBtn && saveBtn && cancelBtn) {
-      lockBtn.addEventListener('click', function () {
-        adrEditor.style.display = adrEditor.style.display === 'flex' ? 'none' : 'flex';
-        adrEditor.style.flexDirection = 'row';
-        pwdInput.style.display = 'inline-block';
-        adrInput.style.display = 'none';
-        saveBtn.style.display = 'none';
-        cancelBtn.style.display = 'none';
-        unlockBtn.style.display = 'inline-block';
-        pwdInput.value = '';
-      });
+    function formatDateForInput(date) {
+      const y = date.getFullYear();
+      const m = String(date.getMonth() + 1).padStart(2, '0');
+      const d = String(date.getDate()).padStart(2, '0');
+      return `${y}-${m}-${d}`;
+    }
 
-      unlockBtn.addEventListener('click', function () {
-        if ((pwdInput.value || '') === PASSWORD) {
-          ownerUnlocked = true;
-          ownerDashboard.style.display = 'block';
-          adrInput.style.display = 'inline-block';
-          saveBtn.style.display = 'inline-block';
-          cancelBtn.style.display = 'inline-block';
-          unlockBtn.style.display = 'none';
-          pwdInput.style.display = 'none';
-          adrInput.value = window.getCurrentADR(getSelectedProperty());
-          lockBtn.classList.add('unlocked');
-          if (lockLabel) lockLabel.innerText = 'Dashboard sbloccata';
-          if (typeof window.calculate === 'function') window.calculate();
-        } else {
-          alert('Password errata');
+    function parseLocalDate(value) {
+      if (!value) return null;
+      const parts = value.split('-').map(Number);
+      if (parts.length !== 3 || parts.some(Number.isNaN)) return null;
+      return new Date(parts[0], parts[1] - 1, parts[2]);
+    }
+
+    function formatDateIT(date) {
+      return (date instanceof Date && !Number.isNaN(date.getTime())) ? date.toLocaleDateString('it-IT') : '-';
+    }
+
+    function addDays(date, days) {
+      const d = new Date(date);
+      d.setDate(d.getDate() + days);
+      return d;
+    }
+
+    function diffDays(start, end) {
+      return Math.max(1, Math.round((end - start) / 86400000));
+    }
+
+    function getSeasonMultiplier(checkin, checkout, prestigeIndex) {
+      let total = 0;
+      let nights = 0;
+      let d = new Date(checkin);
+
+      while (d < checkout) {
+        const month = d.getMonth() + 1;
+        let base = 1.0;
+        if ([6, 7, 8, 9].includes(month)) base = 1.30;
+        else if ([12, 1, 2].includes(month)) base = 1.05;
+        total += 1 + ((base - 1) * prestigeIndex);
+        nights += 1;
+        d = addDays(d, 1);
+      }
+
+      return nights ? total / nights : 1;
+    }
+
+    function getTierDiscountRate(tierName, discountPower) {
+      const rawRates = {
+        long: 0.08 * discountPower,
+        extra: 0.18 * discountPower,
+        smart: 0.25 * discountPower
+      };
+      const caps = {
+        long: 0.10,
+        extra: 0.22,
+        smart: 0.30
+      };
+      return Math.min(rawRates[tierName] || 0, caps[tierName] || 0);
+    }
+
+    function getPenaltyMax(days, contractMode) {
+      if (contractMode === 'flex' || days < 30) return 0;
+      if (days >= 61) return 500;
+      if (days >= 45) return 350;
+      return 250;
+    }
+
+    function getCleaningPlan(days) {
+      const plan = {
+        auditCost: days >= 14 ? 35 : 0,
+        finalCleanCost: days >= 30 ? 80 : 45,
+        intermediateCost: 0,
+        items: []
+      };
+
+      if (days < 14) return plan;
+
+      const count = Math.floor(Math.max(days - 10, 0) / 14);
+      for (let i = 1; i <= count; i++) {
+        const dayMark = i * 14;
+        let cost = 40;
+        if (dayMark > 60) cost = 0;
+        else if (dayMark > 30) cost = 20;
+        plan.intermediateCost += cost;
+        plan.items.push({ dayMark, cost });
+      }
+      return plan;
+    }
+
+    function calculate() {
+      const propKey = document.getElementById('property-select').value;
+      const config = getPropertyConfig(propKey);
+      const adrBase = getCurrentADR(propKey);
+      const contractMode = document.getElementById('contract-mode').value;
+      const payModeEl = document.getElementById('pay-mode');
+      const payMode = payModeEl.value;
+      const requestParking = document.getElementById('parking-checkbox').checked;
+      const guestCount = Math.max(1, parseInt(document.getElementById('guest-count').value || '1', 10) || 1);
+      const realOveruse = parseFloat(document.getElementById('real-overuse').value || '0') || 0;
+      const realDamage = parseFloat(document.getElementById('real-damage').value || '0') || 0;
+
+      let checkin = parseLocalDate(document.getElementById('checkin-date').value);
+      if (!checkin) {
+        checkin = new Date();
+        checkin.setHours(0, 0, 0, 0);
+        document.getElementById('checkin-date').value = formatDateForInput(checkin);
+      }
+
+      let checkout = parseLocalDate(document.getElementById('checkout-date').value);
+      if (!checkout || checkout <= checkin) {
+        const fallbackDays = parseInt(document.getElementById('days-slider').value || '1', 10) || 1;
+        checkout = addDays(checkin, fallbackDays);
+        document.getElementById('checkout-date').value = formatDateForInput(checkout);
+      }
+
+      const nights = diffDays(checkin, checkout);
+      document.getElementById('days-slider').value = nights;
+      document.getElementById('days-display').innerText = nights;
+      document.getElementById('res-days').innerText = nights;
+
+      const seasonMultiplier = getSeasonMultiplier(checkin, checkout, config.prestigeIndex);
+      let volatilityImpact = 1.0;
+      if (nights >= 90) volatilityImpact = 0.10;
+      else if (nights >= 60) volatilityImpact = 0.20;
+      else if (nights >= 30) volatilityImpact = 0.35;
+      else if (nights >= 14) volatilityImpact = 0.65;
+
+      let effectiveADR = adrBase * (1 + ((seasonMultiplier - 1) * volatilityImpact));
+      const hardCapADR = adrBase * 1.5;
+      if (effectiveADR > hardCapADR) effectiveADR = hardCapADR;
+
+      const grossStay = nights * effectiveADR;
+      let tieredNet = 0;
+
+      if (contractMode === 'flex') {
+        tieredNet = grossStay;
+        payModeEl.value = 'weekly';
+        payModeEl.disabled = true;
+      } else {
+        payModeEl.disabled = false;
+        let remaining = nights;
+        const s1 = Math.min(remaining, 13);
+        tieredNet += s1 * effectiveADR;
+        remaining -= s1;
+
+        if (remaining > 0) {
+          const s2 = Math.min(remaining, 16);
+          tieredNet += s2 * effectiveADR * (1 - getTierDiscountRate('long', config.discountPower));
+          remaining -= s2;
         }
-      });
 
-      saveBtn.addEventListener('click', function () {
-        const newAdr = parseFloat(adrInput.value);
-        if (!Number.isNaN(newAdr) && newAdr >= 0) {
-          window.setCurrentADR(getSelectedProperty(), newAdr);
-          if (typeof window.calculate === 'function') window.calculate();
+        if (remaining > 0) {
+          const s3 = Math.min(remaining, 31);
+          tieredNet += s3 * effectiveADR * (1 - getTierDiscountRate('extra', config.discountPower));
+          remaining -= s3;
         }
-      });
 
-      cancelBtn.addEventListener('click', function () {
-        adrEditor.style.display = 'none';
-      });
-    }
-
-    window.isOwnerUnlocked = function () {
-      return ownerUnlocked;
-    };
-  })();
-
-  function getPropertyConfig(property) {
-    const configs = {
-      suite: {
-        name: 'The NoLo Suite (Bilocale)',
-        prestigeIndex: 1.05,
-        discountPower: 1.15,
-        parkingShortDaily: 12,
-        floor60: 11.94,
-        monthlyCap: 2750
-      },
-      nest: {
-        name: 'The NoLo Nest (Mono + Cucina Sep.)',
-        prestigeIndex: 0.95,
-        discountPower: 1.00,
-        parkingShortDaily: 12,
-        floor60: 9.40,
-        monthlyCap: 2250
-      },
-      studio: {
-        name: 'The NoLo Studio (Luxury 6° Piano)',
-        prestigeIndex: 1.15,
-        discountPower: 0.95,
-        parkingShortDaily: 10,
-        floor60: 8.25,
-        monthlyCap: 2250
-      },
-      heritage: {
-        name: 'The NoLo Heritage (Top Location)',
-        prestigeIndex: 1.45,
-        discountPower: 0.70,
-        parkingShortDaily: 10,
-        floor60: 9.98,
-        monthlyCap: 2600
-      }
-    };
-    return configs[property] || configs.suite;
-  }
-
-  function euro(num) {
-    return '€ ' + Number(num || 0).toFixed(2);
-  }
-
-  function formatDateForInput(date) {
-    const y = date.getFullYear();
-    const m = String(date.getMonth() + 1).padStart(2, '0');
-    const d = String(date.getDate()).padStart(2, '0');
-    return `${y}-${m}-${d}`;
-  }
-
-  function formatDateIT(date) {
-    return (date instanceof Date && !isNaN(date.getTime())) ? date.toLocaleDateString('it-IT') : '-';
-  }
-
-  function addDays(date, days) {
-    const d = new Date(date);
-    d.setDate(d.getDate() + days);
-    return d;
-  }
-
-  function diffDays(start, end) {
-    return Math.ceil((end - start) / (1000 * 60 * 60 * 24));
-  }
-
-  function syncDates() {
-    const checkinVal = document.getElementById('checkin-date').value;
-    const checkoutVal = document.getElementById('checkout-date').value;
-    if (!checkinVal || !checkoutVal) return;
-    const d1 = new Date(checkinVal);
-    const d2 = new Date(checkoutVal);
-    const diff = diffDays(d1, d2);
-    if (diff > 0) {
-      document.getElementById('days-slider').value = diff;
-      document.getElementById('days-display').innerText = diff;
-      window.calculate();
-    }
-  }
-
-  function syncSlider() {
-    const days = parseInt(document.getElementById('days-slider').value, 10);
-    document.getElementById('days-display').innerText = days;
-    const checkinVal = document.getElementById('checkin-date').value;
-    if (!checkinVal) return;
-    const checkin = new Date(checkinVal);
-    const checkout = addDays(checkin, days);
-    document.getElementById('checkout-date').value = formatDateForInput(checkout);
-    window.calculate();
-  }
-
-  function changeLanguage() {
-    const lang = document.getElementById('lang-select').value;
-    const select = document.querySelector('.goog-te-combo');
-    if (select) {
-      select.value = lang;
-      select.dispatchEvent(new Event('change'));
-    }
-  }
-
-  function getSeasonMultiplier(checkin, checkout, prestigeIndex) {
-    const months = [];
-    let d = new Date(checkin);
-    while (d < checkout) {
-      months.push(d.getMonth() + 1);
-      d = addDays(d, 30);
-    }
-
-    const uniqueMonths = [...new Set(months)];
-    let total = 0;
-
-    uniqueMonths.forEach((m) => {
-      if ([6, 7, 8, 9].includes(m)) total += 1.30;
-      else if ([12, 1, 2].includes(m)) total += 1.05;
-      else total += 1.00;
-    });
-
-    const avgBase = uniqueMonths.length ? total / uniqueMonths.length : 1;
-    return 1 + ((avgBase - 1) * prestigeIndex);
-  }
-
-  function getPenaltyMax(days, contractMode) {
-    if (contractMode === 'flex' || days < 30) return 0;
-    if (days >= 61) return 500;
-    if (days >= 45) return 350;
-    return 250;
-  }
-
-  function getCleaningPlan(days) {
-    const plan = {
-      auditCost: days >= 14 ? 35 : 0,
-      finalCleanCost: days >= 30 ? 80 : 45,
-      intermediateCost: 0,
-      items: []
-    };
-
-    if (days < 14) return plan;
-
-    const count = Math.floor((Math.max(days - 10, 0)) / 14);
-
-    for (let i = 1; i <= count; i++) {
-      const dayMark = i * 14;
-      let cost = 40;
-      let label = `Pulizia intermedia #${i} (€40)`;
-
-      if (dayMark > 60) {
-        cost = 0;
-        label = `Pulizia intermedia #${i} (omaggio)`;
-      } else if (dayMark > 30) {
-        cost = 20;
-        label = `Pulizia intermedia #${i} (€20)`;
+        if (remaining > 0) {
+          tieredNet += remaining * effectiveADR * (1 - getTierDiscountRate('smart', config.discountPower));
+        }
       }
 
-      plan.intermediateCost += cost;
-      plan.items.push({ dayMark, cost, label });
-    }
-
-    return plan;
-  }
-
-  function getMidStayBenefits(days, contractMode, requestParking) {
-    const items = [];
-    if (contractMode === 'flex') {
-      items.push('Flex Stay: uscita libera a fine periodo pagato.');
-      return items;
-    }
-    if (days >= 14) items.push('Dal giorno 14: Soft Pack IT attivo.');
-    if (days >= 30) items.push('Dal giorno 30: Spirit Pack IT attivo.');
-    if (days >= 61) items.push('Dal giorno 61: profilo Smart Resident.');
-    if (requestParking && days >= 61) items.push('Parcheggio/mobilità: omaggio o agevolazione premium.');
-    else if (requestParking && days >= 30) items.push('Parcheggio/mobilità: quota flat long stay.');
-    return items;
-  }
-
-  window.calculate = function () {
-    const propKey = document.getElementById('property-select').value;
-    const config = getPropertyConfig(propKey);
-    const adrBase = window.getCurrentADR(propKey);
-    const contractMode = document.getElementById('contract-mode').value;
-    const payMode = document.getElementById('pay-mode').value;
-    const requestParking = document.getElementById('parking-checkbox').checked;
-    const realOveruse = parseFloat(document.getElementById('real-overuse').value || 0) || 0;
-    const realDamage = parseFloat(document.getElementById('real-damage').value || 0) || 0;
-
-    let checkin = new Date(document.getElementById('checkin-date').value);
-    if (isNaN(checkin.getTime())) {
-      checkin = new Date();
-      checkin.setHours(0, 0, 0, 0);
-      document.getElementById('checkin-date').value = formatDateForInput(checkin);
-    }
-
-    let checkout = new Date(document.getElementById('checkout-date').value);
-    if (isNaN(checkout.getTime()) || checkout <= checkin) {
-      const fallbackDays = parseInt(document.getElementById('days-slider').value, 10) || 1;
-      checkout = addDays(checkin, fallbackDays);
-      document.getElementById('checkout-date').value = formatDateForInput(checkout);
-    }
-
-    const nights = diffDays(checkin, checkout);
-    document.getElementById('days-slider').value = nights;
-    document.getElementById('days-display').innerText = nights;
-    document.getElementById('res-days').innerText = nights;
-
-    const seasonMultiplier = getSeasonMultiplier(checkin, checkout, config.prestigeIndex);
-
-    let volatilityImpact = 1.0;
-    if (nights >= 90) volatilityImpact = 0.10;
-    else if (nights >= 60) volatilityImpact = 0.20;
-    else if (nights >= 30) volatilityImpact = 0.35;
-    else if (nights >= 14) volatilityImpact = 0.65;
-
-    let effectiveADR = adrBase * (1 + ((seasonMultiplier - 1) * volatilityImpact));
-
-    const hardCapADR = adrBase * 1.5;
-    if (effectiveADR > hardCapADR) effectiveADR = hardCapADR;
-
-    const grossStay = nights * effectiveADR;
-
-    let tieredNet = 0;
-    if (contractMode === 'flex') {
-      tieredNet = grossStay;
-    } else {
-      let remaining = nights;
-      const dp = config.discountPower;
-
-      const s1 = Math.min(remaining, 13);
-      tieredNet += s1 * effectiveADR;
-      remaining -= s1;
-
-      if (remaining > 0) {
-        const s2 = Math.min(remaining, 16);
-        tieredNet += s2 * (effectiveADR * (1 - (0.15 * dp)));
-        remaining -= s2;
+      const proportionalMonthlyCap = (config.monthlyCap / 30) * nights;
+      if (contractMode !== 'flex' && nights >= 30 && tieredNet > proportionalMonthlyCap) {
+        tieredNet = proportionalMonthlyCap;
       }
 
-      if (remaining > 0) {
-        const s3 = Math.min(remaining, 31);
-        tieredNet += s3 * (effectiveADR * (1 - (0.35 * dp)));
-        remaining -= s3;
+      let paymentDiscount = 0;
+      if (contractMode !== 'flex' && nights >= 30) {
+        if (payMode === 'monthly') paymentDiscount = tieredNet * 0.03;
+        if (payMode === 'full') paymentDiscount = tieredNet * 0.06;
       }
 
-      if (remaining > 0) {
-        tieredNet += remaining * (effectiveADR * (1 - (0.45 * dp)));
+      const stayNet = Math.max(0, tieredNet - paymentDiscount);
+      const tieredDiscount = Math.max(0, grossStay - tieredNet);
+
+      let util = 0;
+      if (nights < 30) util = Math.min(stayNet * 0.05, 80);
+      else util = (Math.floor(nights / 30) * 90) + ((nights % 30) * 3);
+
+      const cleaningPlan = getCleaningPlan(nights);
+      const auditCost = cleaningPlan.auditCost;
+      const cleaningInterm = cleaningPlan.intermediateCost;
+      const finalCleanCost = cleaningPlan.finalCleanCost;
+
+      const cityTax = 9.5 * guestCount * Math.min(nights, 14);
+      const serviceFee = 15;
+
+      let parking = 0;
+      if (requestParking) {
+        if (nights >= 61 && contractMode !== 'flex') parking = 0;
+        else if (nights >= 30) parking = 150;
+        else parking = nights * config.parkingShortDaily;
       }
-    }
 
-    const proportionalMonthlyCap = (config.monthlyCap / 30) * nights;
-    if (tieredNet > proportionalMonthlyCap) tieredNet = proportionalMonthlyCap;
-
-    let paymentDiscount = 0;
-    if (contractMode !== 'flex' && nights >= 30) {
-      if (payMode === 'monthly') paymentDiscount = tieredNet * 0.05;
-      if (payMode === 'full') paymentDiscount = tieredNet * 0.10;
-    }
-
-    const stayNet = tieredNet - paymentDiscount;
-    const tieredDiscount = grossStay - tieredNet;
-
-    let util = 0;
-    if (nights < 30) util = Math.min(stayNet * 0.05, 80);
-    else util = (Math.floor(nights / 30) * 90) + ((nights % 30) * 3);
-
-    const cleaningPlan = getCleaningPlan(nights);
-    const auditCost = cleaningPlan.auditCost;
-    const cleaningInterm = cleaningPlan.intermediateCost;
-    const finalCleanCost = cleaningPlan.finalCleanCost;
-
-    const tax = 9.5 * Math.min(nights, 14);
-    const serviceFee = 15;
-
-    let parking = 0;
-    if (requestParking) {
-      if (nights >= 61 && contractMode !== 'flex') parking = 0;
-      else if (nights >= 30) parking = 150;
-      else parking = nights * config.parkingShortDaily;
-    }
-
-    let reg = 0;
-    if (nights >= 30) {
-      const baseReg = (stayNet * 0.02) + 16;
-      if (nights > 75) reg = 0;
-      else if (nights > 60) reg = baseReg * 0.5;
-      else reg = baseReg;
-    }
-
-    const finalTotal = stayNet + util + reg + cleaningInterm + auditCost + finalCleanCost + tax + serviceFee + parking;
-
-    const maxPenalty = getPenaltyMax(nights, contractMode);
-    const guaranteeDiscount = maxPenalty;
-    const guaranteeEnergy = nights >= 30 ? realOveruse : 0;
-    const guaranteeDamage = nights >= 30 ? realDamage : 0;
-    const guaranteeTotal = guaranteeDiscount + guaranteeEnergy + guaranteeDamage;
-
-    document.getElementById('adr-readonly').value = adrBase.toFixed(2);
-    document.getElementById('adr-context').value = `Stagione automatica (${formatDateIT(checkin)} → ${formatDateIT(checkout)})`;
-
-    document.getElementById('stay-gross').innerText = grossStay.toFixed(2);
-    document.getElementById('tiered-discount').innerText = tieredDiscount.toFixed(2);
-    document.getElementById('payment-discount').innerText = paymentDiscount.toFixed(2);
-    document.getElementById('stay-net').innerText = stayNet.toFixed(2);
-    document.getElementById('util-cost').innerText = util.toFixed(2);
-    document.getElementById('reg-cost').innerText = reg.toFixed(2);
-    document.getElementById('cleaning-cost').innerText = cleaningInterm.toFixed(2);
-    document.getElementById('audit-cost').innerText = auditCost.toFixed(2);
-    document.getElementById('final-clean-cost').innerText = finalCleanCost.toFixed(2);
-    document.getElementById('parking-cost').innerText = parking.toFixed(2);
-    document.getElementById('tax-cost').innerText = (tax + serviceFee).toFixed(2);
-    document.getElementById('final-total').innerText = finalTotal.toFixed(2);
-
-    document.getElementById('guarantee-discount').innerText = guaranteeDiscount.toFixed(2);
-    document.getElementById('guarantee-energy').innerText = guaranteeEnergy.toFixed(2);
-    document.getElementById('guarantee-damage').innerText = guaranteeDamage.toFixed(2);
-    document.getElementById('guarantee-total').innerText = guaranteeTotal.toFixed(2);
-
-    const benefits = [];
-    if (contractMode === 'guaranteed' && nights >= 14) benefits.push('✓ Soft Pack IT');
-    if (contractMode === 'guaranteed' && nights >= 30) benefits.push('✓ Spirit Pack IT');
-    if (requestParking && contractMode === 'guaranteed' && nights >= 61) benefits.push('✓ Mobilità agevolata');
-    if (contractMode === 'flex') benefits.push('✓ Nessuna penale a fine periodo saldato');
-
-    const badgeEl = document.getElementById('active-benefits');
-    if (benefits.length) {
-      badgeEl.style.display = 'block';
-      badgeEl.innerHTML = 'BENEFIT / CONDIZIONI ATTIVE:<br>' + benefits.join(' &nbsp;|&nbsp; ');
-    } else {
-      badgeEl.style.display = 'none';
-      badgeEl.innerHTML = '';
-    }
-
-    const payModeEl = document.getElementById('pay-mode');
-    if (contractMode === 'flex') {
-      payModeEl.value = 'weekly';
-      payModeEl.disabled = true;
-      document.getElementById('model-summary').innerText = 'Flex Stay / Nessun blocco lungo';
-    } else {
-      payModeEl.disabled = false;
-      document.getElementById('model-summary').innerText = 'Guaranteed / Calendario bloccato';
-    }
-
-    document.getElementById('adr-summary').innerText = 'ADR media netta: ' + euro(stayNet / nights);
-    document.getElementById('property-summary').innerHTML = `Alloggio: <strong>${config.name}</strong>`;
-
-    document.getElementById('guarantee-note').innerText =
-      contractMode === 'flex'
-        ? 'Nel modello Flex non si applica penale di uscita alla fine del periodo pagato. Restano separati danni, overuse e servizi già maturati.'
-        : `Penale massima teorica: ${euro(maxPenalty)}. Con preavviso minimo di 10 giorni la penale si riduce per soglie 50% / 83%.`;
-
-    const auditDate = nights >= 14 ? addDays(checkout, -10) : null;
-    const noticeDate = contractMode === 'flex' ? null : addDays(checkout, -10);
-    const halfDate = addDays(checkin, Math.ceil(nights * 0.50));
-    const eighty3Date = addDays(checkin, Math.ceil(nights * 0.83));
-
-    document.getElementById('plan-checkin').innerText = formatDateIT(checkin);
-    document.getElementById('plan-checkout').innerText = formatDateIT(checkout);
-    document.getElementById('plan-audit-date').innerText = auditDate ? formatDateIT(auditDate) : 'non previsto';
-    document.getElementById('plan-notice-date').innerText = noticeDate ? formatDateIT(noticeDate) : 'non richiesto';
-    document.getElementById('plan-half-date').innerText = contractMode === 'flex' ? 'n/a' : formatDateIT(halfDate);
-    document.getElementById('plan-eighty3-date').innerText = contractMode === 'flex' ? 'n/a' : formatDateIT(eighty3Date);
-
-    const cleaningEl = document.getElementById('cleaning-schedule');
-    cleaningEl.innerHTML = '';
-    if (auditDate) {
-      cleaningEl.innerHTML += `<div class="price-line"><span>Audit tecnico / pre-cleaning</span><span class="value">${formatDateIT(auditDate)}</span></div>`;
-    }
-    cleaningPlan.items.forEach((item) => {
-      const eventDate = addDays(checkin, item.dayMark);
-      if (eventDate < checkout) {
-        cleaningEl.innerHTML += `<div class="price-line"><span>${item.label}</span><span class="value">${formatDateIT(eventDate)}</span></div>`;
+      let reg = 0;
+      if (nights >= 30) {
+        const baseReg = (stayNet * 0.02) + 16;
+        if (nights > 75) reg = 0;
+        else if (nights > 60) reg = baseReg * 0.5;
+        else reg = baseReg;
       }
-    });
-    cleaningEl.innerHTML += `<div class="price-line"><span>Pulizia finale / ripristino</span><span class="value">${formatDateIT(checkout)}</span></div>`;
 
-    const benefitTimeline = getMidStayBenefits(nights, contractMode, requestParking);
-    document.getElementById('benefit-timeline').innerHTML = benefitTimeline.length
-      ? '<strong>Timeline benefit:</strong><br>' + benefitTimeline.join('<br>')
-      : '<strong>Timeline benefit:</strong><br>Nessun benefit aggiuntivo maturato.';
+      const finalTotal = stayNet + util + reg + cleaningInterm + auditCost + finalCleanCost + cityTax + serviceFee + parking;
+      const maxPenalty = getPenaltyMax(nights, contractMode);
+      const guaranteeEnergy = nights >= 30 ? realOveruse : 0;
+      const guaranteeDamage = nights >= 30 ? realDamage : 0;
 
-    if (contractMode === 'flex') {
-      document.getElementById('penalty-timeline').innerHTML = '<strong>Penale / recesso:</strong><br>Flex Stay: uscita libera alla fine del periodo pagato.';
-    } else if (nights < 30) {
-      document.getElementById('penalty-timeline').innerHTML = '<strong>Penale / recesso:</strong><br>La penale fissa 2026 si applica ai soggiorni 30+ notti.';
-    } else {
-      document.getElementById('penalty-timeline').innerHTML =
-        '<strong>Penale / recesso:</strong><br>' +
-        `Penale massima fascia durata: ${euro(maxPenalty)}.<br>` +
-        `Fino al ${formatDateIT(halfDate)}: 100% con preavviso valido.<br>` +
-        `Dal ${formatDateIT(halfDate)} al ${formatDateIT(eighty3Date)}: 50%.<br>` +
-        `Dal ${formatDateIT(eighty3Date)} in poi: solo € 75 amministrativi.`;
-    }
+      document.getElementById('adr-readonly').value = adrBase.toFixed(2);
+      document.getElementById('adr-context').value = `Stagione automatica (${formatDateIT(checkin)} - ${formatDateIT(checkout)})`;
+      document.getElementById('stay-gross').innerText = grossStay.toFixed(2);
+      document.getElementById('tiered-discount').innerText = tieredDiscount.toFixed(2);
+      document.getElementById('payment-discount').innerText = paymentDiscount.toFixed(2);
+      document.getElementById('stay-net').innerText = stayNet.toFixed(2);
+      document.getElementById('util-cost').innerText = util.toFixed(2);
+      document.getElementById('reg-cost').innerText = reg.toFixed(2);
+      document.getElementById('cleaning-cost').innerText = cleaningInterm.toFixed(2);
+      document.getElementById('audit-cost').innerText = auditCost.toFixed(2);
+      document.getElementById('final-clean-cost').innerText = finalCleanCost.toFixed(2);
+      document.getElementById('parking-cost').innerText = parking.toFixed(2);
+      document.getElementById('tax-cost').innerText = (cityTax + serviceFee).toFixed(2);
+      document.getElementById('tax-guests').innerText = guestCount;
+      document.getElementById('final-total').innerText = finalTotal.toFixed(2);
 
-    if (contractMode === 'flex') {
-      document.getElementById('recesso-summary').innerText = 'Flex Stay: nessun preavviso oltre il periodo pagato. Proroghe soggette a disponibilità.';
-    } else if (nights < 30) {
-      document.getElementById('recesso-summary').innerText = 'Per soggiorni inferiori a 30 notti non si attiva la penale fissa 2026.';
-    } else {
-      document.getElementById('recesso-summary').innerText =
-        `Per ottenere la riduzione penale, il recesso deve essere comunicato entro il ${formatDateIT(noticeDate)}.`;
-    }
+      document.getElementById('model-summary').innerText = contractMode === 'flex' ? 'Flex Stay / ADR piena' : 'Guaranteed / tier prudente';
+      document.getElementById('adr-summary').innerText = 'ADR netta: ' + euro(stayNet / nights);
+      document.getElementById('property-summary').innerText = 'Alloggio: ' + config.name;
 
-    if (window.isOwnerUnlocked()) {
-      const ownerDashboard = document.getElementById('owner-dashboard');
-      ownerDashboard.style.display = 'block';
+      const auditDate = nights >= 14 ? addDays(checkout, -10) : null;
+      const noticeDate = contractMode === 'flex' ? null : addDays(checkout, -10);
+      const halfDate = addDays(checkin, Math.ceil(nights * 0.50));
+      const eighty3Date = addDays(checkin, Math.ceil(nights * 0.83));
 
-      const forfettarioTax = stayNet * 0.06;
+      document.getElementById('plan-checkin').innerText = formatDateIT(checkin);
+      document.getElementById('plan-checkout').innerText = formatDateIT(checkout);
+      document.getElementById('plan-audit-date').innerText = auditDate ? formatDateIT(auditDate) : 'non previsto';
+      document.getElementById('plan-notice-date').innerText = noticeDate ? formatDateIT(noticeDate) : 'non richiesto';
+      document.getElementById('plan-half-date').innerText = contractMode === 'flex' ? 'n/a' : formatDateIT(halfDate);
+      document.getElementById('plan-eighty3-date').innerText = contractMode === 'flex' ? 'n/a' : formatDateIT(eighty3Date);
+
+      if (contractMode === 'flex') {
+        document.getElementById('recesso-summary').innerHTML = '<strong>Flex Stay:</strong> uscita libera alla fine del periodo pagato. Proroghe soggette a disponibilità.';
+      } else if (nights < 30) {
+        document.getElementById('recesso-summary').innerHTML = '<strong>Recesso:</strong> la penale fissa 2026 si applica ai soggiorni 30+ notti.';
+      } else {
+        document.getElementById('recesso-summary').innerHTML = `<strong>Recesso:</strong> penale massima ${euro(maxPenalty)}. Per riduzione penale, comunicazione entro ${formatDateIT(noticeDate)}. Oltre 83% soggiorno: €75 amministrativi.`;
+      }
+
+      const taxFlat = stayNet * 0.06;
       const dailyNetBeforeTax = stayNet / nights;
-      const dailyNetAfterTax = (stayNet - forfettarioTax) / nights;
-      const ownerMarginNet = stayNet - forfettarioTax - util - reg - cleaningInterm - auditCost - finalCleanCost - serviceFee;
+      const dailyNetAfterTax = (stayNet - taxFlat) / nights;
+      const ownerMarginNet = stayNet - taxFlat - util - reg - cleaningInterm - auditCost - finalCleanCost - serviceFee - guaranteeEnergy - guaranteeDamage;
 
       document.getElementById('owner-month-cap').innerText = proportionalMonthlyCap.toFixed(2);
       document.getElementById('owner-daily-net-before-tax').innerText = dailyNetBeforeTax.toFixed(2);
-      document.getElementById('owner-tax-flat').innerText = forfettarioTax.toFixed(2);
+      document.getElementById('owner-tax-flat').innerText = taxFlat.toFixed(2);
       document.getElementById('owner-daily-net-after-tax').innerText = dailyNetAfterTax.toFixed(2);
       document.getElementById('owner-floor60').innerText = config.floor60.toFixed(2);
       document.getElementById('owner-margin-net').innerText = ownerMarginNet.toFixed(2);
 
-      document.getElementById('owner-note').innerText =
-        `Il floor prudente (${euro(config.floor60)}/gg) rappresenta la soglia minima di tenuta ipotizzando un tasso di occupazione del 60%.`;
-
       const sustainabilityEl = document.getElementById('sustainability-alert');
       if (dailyNetAfterTax < config.floor60) {
-        sustainabilityEl.innerHTML = `<div class="alert danger">⚠️ Sotto break-even prudente (${euro(config.floor60)}/gg)</div>`;
+        sustainabilityEl.innerHTML = `<strong class="bad">Sotto break-even prudente:</strong> ${euro(dailyNetAfterTax)}/gg contro floor ${euro(config.floor60)}/gg.`;
       } else {
-        sustainabilityEl.innerHTML = `<div class="alert safe">✅ Margine sostenibile</div>`;
+        sustainabilityEl.innerHTML = `<strong class="ok">Margine sostenibile:</strong> ${euro(dailyNetAfterTax)}/gg contro floor ${euro(config.floor60)}/gg.`;
       }
     }
-  };
 
-  document.querySelectorAll('.accordion').forEach(acc => {
-    acc.onclick = function () {
-      this.classList.toggle('active');
-      const panel = this.nextElementSibling;
-      panel.style.maxHeight = panel.style.maxHeight ? null : panel.scrollHeight + 'px';
-    };
-  });
+    function syncDatesFromInputs() {
+      const checkin = parseLocalDate(document.getElementById('checkin-date').value);
+      const checkout = parseLocalDate(document.getElementById('checkout-date').value);
+      if (checkin && checkout && checkout > checkin) {
+        document.getElementById('days-slider').value = diffDays(checkin, checkout);
+      }
+      calculate();
+    }
 
-  window.addEventListener('load', function () {
-    const checkinInput = document.getElementById('checkin-date');
-    const checkoutInput = document.getElementById('checkout-date');
-    const slider = document.getElementById('days-slider');
+    function syncSliderToCheckout() {
+      const checkin = parseLocalDate(document.getElementById('checkin-date').value);
+      const days = parseInt(document.getElementById('days-slider').value || '1', 10) || 1;
+      document.getElementById('days-display').innerText = days;
+      if (checkin) document.getElementById('checkout-date').value = formatDateForInput(addDays(checkin, days));
+      calculate();
+    }
 
-    if (checkinInput && !checkinInput.value) {
+    document.querySelectorAll('input, select').forEach((el) => {
+      if (el.id === 'checkin-date' || el.id === 'checkout-date') el.addEventListener('change', syncDatesFromInputs);
+      else if (el.id === 'days-slider') el.addEventListener('input', syncSliderToCheckout);
+      else el.addEventListener('input', calculate);
+      el.addEventListener('change', calculate);
+    });
+
+    window.addEventListener('load', () => {
       const today = new Date();
       today.setHours(0, 0, 0, 0);
-      checkinInput.value = formatDateForInput(today);
-    }
-
-    if (checkoutInput && !checkoutInput.value) {
-      const days = parseInt(slider.value || '1', 10);
-      const d = new Date(checkinInput.value);
-      checkoutInput.value = formatDateForInput(addDays(d, days));
-    }
-
-    window.calculate();
-  });
-</script>
-
-<script>
-  (function(){
-    let checkCount = 0;
-    function showHint() {
-      const el = document.getElementById('google_translate_element');
-      if (!el) return;
-      const hintId = 'translate-hint';
-      if (document.getElementById(hintId)) return;
-      const hint = document.createElement('div');
-      hint.id = hintId;
-      hint.style.marginTop = '8px';
-      hint.style.fontSize = '13px';
-      hint.style.color = '#f0e68c';
-      hint.innerText = 'Widget traduzione non disponibile.';
-      el.appendChild(hint);
-    }
-    function check() {
-      checkCount++;
-      if (window.google && window.google.translate && typeof window.google.translate.TranslateElement === 'function') return;
-      if (checkCount > 8) showHint();
-      else setTimeout(check, 500);
-    }
-    setTimeout(check, 500);
-  })();
-</script>
+      document.getElementById('checkin-date').value = formatDateForInput(today);
+      document.getElementById('checkout-date').value = formatDateForInput(addDays(today, 1));
+      calculate();
+    });
+  </script>
 </body>
 </html>
